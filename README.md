@@ -22,11 +22,13 @@ Web học tập Tiếng Anh giúp
 ---
 ## Cài đặt
 
-<pre>'''bash
-git clone https://github.com/quan19191919/Learn-English.git '''</pre>
+<pre>
+bash
+git clone https://github.com/quan19191919/Learn-English.git '''
+</pre>
 
 2. Cài đặt thư viện
-   <pre>'''pip install -r requirements.txt'''</pre>
+   <pre>pip install -r requirements.txt</pre>
 3. DATABASE
 <pre>
    def get_db_connection():
@@ -42,13 +44,13 @@ git clone https://github.com/quan19191919/Learn-English.git '''</pre>
    <pre> http://127.0.0.1:5000 </pre>
 6. Tài khoản mẫu
    
-| Vai trò     | Email          | Mật khẩu     |
-|-----------|------------------|-----------|
-| Admin | admin@gmail.com        | 123456 |
-| Student | phuong@gmai.com        | p1234 |
+| Vai trò | Email           | Mật khẩu|
+|---------|-----------------|---------|
+| Admin   | admin@gmail.com | 123456  |
+| Student | phuong@gmai.com | p1234   |
 
 7. Cấu trúc thư mục
-<pre>'''
+<pre>
     project/
 ├── README.md
 ├── LICENSE
@@ -78,5 +80,9 @@ git clone https://github.com/quan19191919/Learn-English.git '''</pre>
 │       └── views.py
 └── tests/
     └── test_app.py
-'''</pre>
-
+</pre>
+## RUN SERVER
+<pre>
+python app.py
+Mở trình duyệt: http://127.0.0.1:5000 
+</pre>
