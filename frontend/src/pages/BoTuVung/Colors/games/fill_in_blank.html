@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fill in the Blank - Colors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Fredoka+One&display=swap');
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23764ba2;stop-opacity:0.1"/><stop offset="100%" style="stop-color:%234b2991;stop-opacity:0.2"/></linearGradient></defs><rect width="100%" height="100%" fill="url(%23bg)"/><circle cx="200" cy="150" r="30" fill="%23ffeaa7" opacity="0.3"/><circle cx="800" cy="200" r="40" fill="%23fab1a0" opacity="0.3"/><circle cx="1200" cy="300" r="25" fill="%23fd79a8" opacity="0.3"/><circle cx="400" cy="500" r="35" fill="%2374b9ff" opacity="0.3"/><circle cx="1000" cy="600" r="30" fill="%2300b894" opacity="0.3"/><circle cx="600" cy="700" r="40" fill="%23e17055" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .game-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(118, 75, 162, 0.2);
+            border: 2px solid rgba(118, 75, 162, 0.1);
+        }
+
+        .score-panel {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.15);
+            border: 1px solid rgba(118, 75, 162, 0.2);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #764ba2, #4b2991);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #764ba2, #4b2991);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(118, 75, 162, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(116, 185, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(116, 185, 255, 0.4);
+        }
+
+        .btn-hint {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(253, 203, 110, 0.3);
+        }
+
+        .btn-hint:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(253, 203, 110, 0.4);
+        }
+
+        .input-box {
+            border: 3px solid rgba(118, 75, 162, 0.3);
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: inline-block;
+            min-width: 140px;
+            text-align: center;
+            font-weight: bold;
+            background: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.1);
+        }
+        
+        .input-box:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.2);
+            transform: scale(1.02);
+        }
+        
+        .correct {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            border-color: #00b894;
+            color: white;
+            animation: success 0.6s ease;
+        }
+        
+        .incorrect {
+            background: linear-gradient(135deg, #e17055, #d63031);
+            border-color: #e17055;
+            color: white;
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        @keyframes success {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .sentence {
+            font-size: 1.4rem;
+            line-height: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #2d3748;
+            font-weight: 500;
+        }
+        
+        .color-image {
+            max-width: 220px;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 12px 25px rgba(118, 75, 162, 0.2);
+            border: 3px solid white;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            background: linear-gradient(135deg, #764ba2, #4b2991);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @media (max-width: 768px) {
+            .sentence { font-size: 1.2rem; line-height: 2rem; }
+            .input-box { min-width: 120px; font-size: 1rem; padding: 10px 15px; }
+            .color-image { max-width: 180px; max-height: 180px; }
+            .btn-primary, .btn-secondary, .btn-hint { padding: 12px 24px; font-size: 1rem; }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <span class="font-bold text-pink-900 text-lg">Fill in the Blank - Colors</span>
+        </div>
+        <div class="space-x-4 text-base">
+            <a href="../../../../pages/Home.html" class="hover:text-pink-600">Trang chủ</a>
+            <a href="../../botuvung.html" class="hover:text-pink-600">Bộ từ vựng</a>
+            <a href="index.html" class="bg-pink-900 text-white px-4 py-1.5 rounded font-medium">Quay về Games</a>
+        </div>
+    </nav>
+
+    <!-- Main Game Area -->
+    <main class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Game Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-pink-900 mb-2">🎨 Fill in the Blank</h1>
+            <p class="text-lg text-gray-600">Điền từ tiếng Anh về màu sắc vào chỗ trống</p>
+        </div>
+
+        <!-- Score and Progress -->
+        <div class="score-panel flex flex-wrap justify-between items-center mb-8 gap-4">
+            <div class="text-lg font-semibold text-pink-800">
+                Điểm: <span id="score">0</span>/<span id="total">0</span>
+            </div>
+            <div class="text-lg font-semibold text-blue-800">
+                Câu: <span id="current-question">1</span>/<span id="total-questions">10</span>
+            </div>
+            <div class="text-lg font-semibold text-purple-800">
+                Thời gian: <span id="timer">00:00</span>
+            </div>
+        </div>
+
+        <!-- Game Content -->
+        <div id="game-container" class="game-container">
+            <!-- Question will be inserted here -->
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="flex flex-wrap justify-center gap-6 mt-8">
+            <button id="check-btn" class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+                ✅ Kiểm tra
+            </button>
+            <button id="next-btn" class="btn-secondary hidden">
+                ➡️ Câu tiếp theo
+            </button>
+            <button id="hint-btn" class="btn-hint">
+                💡 Gợi ý
+            </button>
+        </div>
+    </main>
+
+    <!-- Completion Modal -->
+    <div id="completion-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="modal-content p-8 max-w-md w-full mx-4 text-center">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-2xl font-bold text-pink-900 mb-4">Chúc mừng!</h2>
+            <p class="text-lg text-gray-600 mb-2">Bạn đã hoàn thành bài tập!</p>
+            <p class="text-xl font-semibold text-pink-800 mb-6">
+                Điểm của bạn: <span id="final-score">0</span>/<span id="final-total">0</span>
+            </p>
+            <p class="text-lg text-purple-800 mb-6">
+                Thời gian: <span id="final-time">00:00</span>
+            </p>
+            <div class="space-x-4">
+                <button id="play-again-btn" class="btn-primary">
+                    🔄 Chơi lại
+                </button>
+                <button id="back-to-games-btn" class="btn-secondary">
+                    🎮 Về Games
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const colors = [
+            {
+                english: "red",
+                vietnamese: "đỏ",
+                sentence: "The ____ apple looks delicious.",
+                translation: "Quả táo ____ trông ngon lắm.",
+                image: "https://i.pinimg.com/736x/9b/00/ab/9b00abdee7168f42a798e0a1fa8f0c19.jpg"
+            },
+            {
+                english: "blue",
+                vietnamese: "xanh dương",
+                sentence: "The ocean is deep ____.",
+                translation: "Đại dương có màu ____ sâu thẳm.",
+                image: "https://i.pinimg.com/1200x/a3/c5/f7/a3c5f76651763d39c9123aee4a7ca4e4.jpg"
+            },
+            {
+                english: "green",
+                vietnamese: "xanh lá",
+                sentence: "The grass is ____ in spring.",
+                translation: "Cỏ có màu ____ vào mùa xuân.",
+                image: "https://i.pinimg.com/1200x/0a/70/a9/0a70a98db2cdf3f06e7bf9143d69d8d2.jpg"
+            },
+            {
+                english: "yellow",
+                vietnamese: "vàng",
+                sentence: "The sun is bright ____.",
+                translation: "Mặt trời có màu ____ sáng.",
+                image: "https://i.pinimg.com/736x/f4/06/f2/f406f296284ec035c58d6305c03816ad.jpg"
+            },
+            {
+                english: "orange",
+                vietnamese: "cam",
+                sentence: "The ____ fruit is sweet and juicy.",
+                translation: "Quả ____ ngọt và mọng nước.",
+                image: "https://i.pinimg.com/1200x/81/a1/9e/81a19e8c553c95f0c432698a5e71ccf1.jpg"
+            },
+            {
+                english: "purple",
+                vietnamese: "tím",
+                sentence: "The grapes are dark ____.",
+                translation: "Những chùm nho có màu ____ đậm.",
+                image: "https://i.pinimg.com/1200x/ae/c7/28/aec728f0b6e146f5a25b0d1ad9c32248.jpg"
+            },
+            {
+                english: "pink",
+                vietnamese: "hồng",
+                sentence: "The flowers are beautiful ____.",
+                translation: "Những bông hoa có màu ____ đẹp.",
+                image: "https://i.pinimg.com/736x/6b/62/07/6b62072ff46ac092affbca0a96fdab59.jpg"
+            },
+            {
+                english: "black",
+                vietnamese: "đen",
+                sentence: "The night sky is ____.",
+                translation: "Bầu trời đêm có màu ____.",
+                image: "https://i.pinimg.com/1200x/84/b0/b5/84b0b58bbabfd1c266e3ed7c353bbda3.jpg"
+            },
+            {
+                english: "white",
+                vietnamese: "trắng",
+                sentence: "Snow is pure ____.",
+                translation: "Tuyết có màu ____ tinh khôi.",
+                image: "https://i.pinimg.com/736x/46/7d/60/467d6029ccca38f11e4538bdb6ce505b.jpg"
+            },
+            {
+                english: "brown",
+                vietnamese: "nâu",
+                sentence: "The tree trunk is ____.",
+                translation: "Thân cây có màu ____.",
+                image: "https://i.pinimg.com/1200x/51/b2/38/51b23886087f0d5ccdf87630a1d28ad0.jpg"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let totalQuestions = 10;
+        let gameStartTime = Date.now();
+        let timerInterval;
+        let questions = [];
+        let currentAnswer = "";
+
+        function initGame() {
+            // Shuffle and select questions
+            questions = [...colors].sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+            currentQuestionIndex = 0;
+            score = 0;
+            gameStartTime = Date.now();
+            
+            // Update UI
+            document.getElementById('total').textContent = totalQuestions;
+            document.getElementById('total-questions').textContent = totalQuestions;
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Date.now() - gameStartTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            currentAnswer = question.english.toLowerCase();
+            
+            // Update progress
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Create question HTML
+            const gameContainer = document.getElementById('game-container');
+            gameContainer.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="${question.image}" alt="${question.vietnamese}" class="color-image mx-auto mb-4">
+                </div>
+                <div class="text-center mb-6">
+                    <p class="sentence text-gray-800">${question.sentence.replace('____', '<input type="text" id="answer-input" class="input-box" placeholder="?">')}</p>
+                    <p class="text-lg text-gray-600 mt-2">${question.translation.replace('____', `<strong>${question.vietnamese}</strong>`)}</p>
+                </div>
+                <div id="feedback" class="text-center mt-4 hidden">
+                    <p id="feedback-text" class="text-lg font-semibold mb-2"></p>
+                    <p id="correct-answer" class="text-green-600"></p>
+                </div>
+            `;
+            
+            // Focus on input
+            setTimeout(() => {
+                document.getElementById('answer-input').focus();
+            }, 100);
+            
+            // Add enter key listener
+            document.getElementById('answer-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkAnswer();
+                }
+            });
+            
+            // Reset buttons
+            document.getElementById('check-btn').style.display = 'inline-block';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('check-btn').disabled = false;
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer-input').value.trim().toLowerCase();
+            const inputBox = document.getElementById('answer-input');
+            const feedback = document.getElementById('feedback');
+            const feedbackText = document.getElementById('feedback-text');
+            const correctAnswerText = document.getElementById('correct-answer');
+            
+            if (!userAnswer) {
+                inputBox.style.borderColor = '#dc2626';
+                return;
+            }
+            
+            feedback.classList.remove('hidden');
+            
+            if (userAnswer === currentAnswer) {
+                // Correct answer
+                inputBox.classList.add('correct');
+                feedbackText.textContent = '🎉 Chính xác!';
+                feedbackText.className = 'text-lg font-semibold mb-2 text-green-600';
+                score++;
+                document.getElementById('score').textContent = score;
+            } else {
+                // Incorrect answer
+                inputBox.classList.add('incorrect');
+                feedbackText.textContent = '❌ Không chính xác!';
+                feedbackText.className = 'text-lg font-semibold mb-2 text-red-600';
+                correctAnswerText.textContent = `Đáp án đúng: ${currentAnswer}`;
+            }
+            
+            // Disable input and check button
+            inputBox.disabled = true;
+            document.getElementById('check-btn').style.display = 'none';
+            
+            // Show next button or complete game
+            if (currentQuestionIndex < totalQuestions - 1) {
+                document.getElementById('next-btn').style.display = 'inline-block';
+            } else {
+                setTimeout(completeGame, 1500);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showHint() {
+            const question = questions[currentQuestionIndex];
+            const hint = `Gợi ý: Từ bắt đầu bằng "${currentAnswer[0].toUpperCase()}" và có ${currentAnswer.length} chữ cái`;
+            
+            // Show hint in feedback area
+            const feedback = document.getElementById('feedback');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            feedback.classList.remove('hidden');
+            feedbackText.textContent = `💡 ${hint}`;
+            feedbackText.className = 'text-lg font-semibold mb-2 text-blue-600';
+            
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 3000);
+        }
+
+        function completeGame() {
+            clearInterval(timerInterval);
+            
+            const finalTime = document.getElementById('timer').textContent;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-total').textContent = totalQuestions;
+            document.getElementById('final-time').textContent = finalTime;
+            
+            document.getElementById('completion-modal').classList.remove('hidden');
+        }
+
+        function playAgain() {
+            document.getElementById('completion-modal').classList.add('hidden');
+            clearInterval(timerInterval);
+            initGame();
+        }
+
+        function backToGames() {
+            window.location.href = 'index.html';
+        }
+
+        // Event listeners
+        document.getElementById('check-btn').addEventListener('click', checkAnswer);
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+        document.getElementById('hint-btn').addEventListener('click', showHint);
+        document.getElementById('play-again-btn').addEventListener('click', playAgain);
+        document.getElementById('back-to-games-btn').addEventListener('click', backToGames);
+
+        // Initialize game when page loads
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+
+</html>

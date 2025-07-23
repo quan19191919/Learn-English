@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vocabulary Learning Website</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <style>
+    .navbar .dropdown-menu {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(76, 75, 75, 0.1);
+    min-width: 180px;
+  }
+  
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      background-image: url('https://i.pinimg.com/736x/81/d9/4c/81d94c527fa182a80a7e1ca3daa7f6be.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .hero-text h1 {
+      font-weight: bold;
+      font-size: 2.5rem;
+    }
+
+    .hero-text p {
+      color: #555;
+      font-size: 1.1rem;
+    }
+
+    .btn-orange {
+      background-color: #ff6600;
+      color: white;
+      font-weight: bold;
+    }
+
+    .icon-box img {
+      width: 40px;
+    }
+
+    .icon-box h6 {
+      font-weight: 600;
+    }
+
+    .nav-link {
+      color: black;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: #ff6600;
+    }
+
+    /* Nút chatbot nổi */
+      #chatbot-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: #007bff;
+        color: white;
+        padding: 15px 18px;
+        border-radius: 50%;
+        font-size: 24px;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: background-color 0.3s ease;
+      }
+      #chatbot-btn:hover {
+        background-color: #0056b3;
+      }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg px-4 py-3" style="background-color: #c9d0df;">
+    <a class="navbar-brand fw-bold" href="#">Smart vocabulary learning website</a>
+    <div class="ms-auto">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#"
+            onclick="checkLoginAndRedirect('/BoTuVung/botuvung.html')">Vocabulary</a></li>
+        <li class="nav-item" id="loginArea">
+          <a class="btn btn-primary ms-2" href="/Auth/LoginForm.html">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero section -->
+  <div class="container mt-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 hero-text">
+        <h1>Smart Vocabulary<br>Learning Website<br>Using Flashcards</h1>
+        <p>A website to help learners (especially students) learn foreign vocabulary through flashcards with images</p>
+      </div>
+      <div class="col-md-6">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+          <div class="carousel-inner rounded shadow">
+            <div class="carousel-item active">
+              <img src="https://media.zim.vn/62e4e1806f494c001f1a509c/app-hoc-tieng-anh.webp?w=1920&q=75"
+                class="d-block w-100" alt="Image 1" style="max-height: 300px; object-fit: cover;">
+            </div>
+            <div class="carousel-item">
+              <img
+                src="https://monkeymedia.vcdn.com.vn/upload/web/storage_web/19-05-2023_16:13:37_APP-HOC-TIENG-ANH-MIEN-PHI.jpg"
+                class="d-block w-100" alt="Image 2" style="max-height: 300px; object-fit: cover;">
+            </div>
+            <div class="carousel-item">
+              <img src="https://edulinkschool.edu.vn/images/banners/original/slide_1648541632.png" class="d-block w-100"
+                alt="Image 3" style="max-height: 300px; object-fit: cover;">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features section -->
+  <div class="container mt-5">
+    <div class="row text-center">
+      <div class="col-md-3 icon-box">
+        <img src="https://img.icons8.com/?size=100&id=80774&format=png&color=000000" />
+        <h6 class="mt-2">Flashcards with Images</h6>
+        <p>Learn vocabulary using visual flashcards</p>
+      </div>
+      <div class="col-md-3 icon-box">
+        <img src="https://img.icons8.com/color/48/000000/controller.png" />
+        <h6 class="mt-2">Knowledge Testing Games</h6>
+        <p>Check vocabulary through mini-games</p>
+      </div>
+      <div class="col-md-3 icon-box">
+        <img src="https://img.icons8.com/color/48/000000/refresh.png" />
+        <h6 class="mt-2">Review Difficult Words</h6>
+        <p>Track and learn again words with mistakes</p>
+      </div>
+      <div class="col-md-3 icon-box">
+        <img src="https://img.icons8.com/color/48/000000/combo-chart.png" />
+        <h6 class="mt-2">Progress Tracking</h6>
+        <p>Monitor vocabulary learning performance</p>
+      </div>
+    </div>
+  </div>
+  <!-- Nút Chatbot nổi -->
+    <a href="/chatbox.html" id="chatbot-btn" title="Trò chuyện cùng Chatbot"
+      >💬</a
+    >
+
+    >
+
+
+
+    <!-- Script gọi chatbot Gemini -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const chatBtn = document.getElementById("chat-send-btn");
+        const chatInput = document.getElementById("chat-input");
+        const chatOutput = document.getElementById("chat-output");
+
+        chatBtn.addEventListener("click", async () => {
+          const message = chatInput.value.trim();
+          if (!message) return;
+
+          chatOutput.innerText = "Đang xử lý...";
+
+          try {
+            const response = await fetch("http://127.0.0.1:5000/chat", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ message: message }),
+            });
+
+            const data = await response.json();
+
+            if (data.error) {
+              chatOutput.innerText = "Lỗi từ AI: " + data.error;
+            } else {
+              chatOutput.innerText = "AI: " + data.response;
+            }
+          } catch (error) {
+            chatOutput.innerText = "Không thể kết nối tới máy chủ AI.";
+            console.error("Lỗi kết nối:", error);
+          }
+        });
+      });
+    </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // 🔑 Gán đúng phần tử loginArea
+    const loginArea = document.getElementById("loginArea");
+    const username = localStorage.getItem("username");
+
+    if (username && loginArea) {
+  loginArea.innerHTML = `
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle fw-semibold text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        👋 ${username}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="/frontend/src/pages/changepassword.html">🔑 Đổi mật khẩu</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="#" onclick="logout()">🚪 Đăng xuất</a></li>
+      </ul>
+    </li>
+  `;
+    } else if (loginArea) {
+      loginArea.innerHTML = `
+    <a class="btn btn-primary ms-2" href="/Auth/LoginForm.html">LogIn</a>
+  `;
+    }
+
+    // 🔐 Xử lý đăng xuất
+    function logout() {
+      localStorage.clear();
+      window.location.replace("/");
+    }
+
+    // 🔄 Kiểm tra đã đăng nhập trước khi truy cập chức năng cần thiết
+    function checkLoginAndRedirect(targetUrl) {
+      const username = localStorage.getItem("username");
+      if (username) {
+        window.location.href = targetUrl;
+      } else {
+        window.location.href = "/Auth/LoginForm.html";
+      }
+    }
+  </script>
+
+
+</body>
+
+</html>

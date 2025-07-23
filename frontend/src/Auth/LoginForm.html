@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vocabulary Learning Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="text-slate-900 font-sans min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-6 py-4 shadow bg-white bg-opacity-90">
+    <div class="font-bold text-blue-900 text-lg">Smart vocabulary</div>
+    <div class="space-x-6 text-base">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="LoginForm.html" class="bg-blue-900 text-white px-4 py-1.5 rounded">Login</a>
+    </div>
+  </nav>
+
+  <!-- Form đăng nhập -->
+  <div class="flex-grow flex items-center justify-center px-4">
+    <main class="max-w-4xl w-full px-6 py-12 bg-white bg-opacity-70 rounded-2xl shadow-2xl backdrop-blur-md">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-3xl font-bold text-blue-900 mb-2">Login</h2>
+          <p class="text-slate-600 mb-6">Log in to use the vocabulary learning system</p>
+
+          <form id="loginForm" method="POST" class="space-y-4">
+            <input type="email" name="email" placeholder="Email" required
+              class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+            <input type="password" name="password" placeholder="Password" required
+              class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <p id="passwordError" class="text-red-600 text-sm mt-1"></p>
+
+            <!-- OTP -->
+            <div class="flex gap-3">
+              <input id="otpInput" name="otp" type="text" placeholder="Nhập mã OTP"
+                class="w-3/5 border border-gray-300 p-4 rounded-md text-lg focus:ring-2 focus:ring-blue-400" />
+              <button type="button" onclick="sendOTP()"
+                class="w-2/5 bg-blue-500 text-white font-semibold text-lg py-3 rounded-md hover:bg-blue-600 transition">
+                Send OTP
+              </button>
+            </div>
+            <p id="otpMessage" class="mt-2 text-center text-base font-medium"></p>
+
+            <button type="submit"
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-md transition">
+              Login
+            </button>
+          </form>
+
+          <p class="mt-4 text-sm text-slate-800 flex flex-wrap items-center gap-4">
+  <span>Don't have an account? 
+    <a href="RegisterForm.html" class="text-blue-600 hover:underline">Sign up</a>
+  </span>
+  <span class="hidden sm:inline">|</span>
+  <a href="ForgotPassword.html" class="text-blue-600 hover:underline">Quên mật khẩu?</a>
+</p>
+
+
+        </div>
+
+        <!-- Ảnh minh họa -->
+        <div class="text-center">
+          <img src="https://i.pinimg.com/736x/4f/6b/bf/4f6bbf3effc5cf63645b64c8681ae3e6.jpg"
+            alt="Login illustration" class="max-h-80 mx-auto rounded-xl shadow-lg" />
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- JS xử lý -->
+  <script>
+    function showToast(message, type = "success") {
+      const toast = document.createElement("div");
+      toast.textContent = message;
+      toast.className = `fixed top-6 left-1/2 transform -translate-x-1/2 px-6 py-3 text-white text-xl font-semibold rounded-xl shadow-lg z-50 bg-${type === "success" ? "green" : "red"}-500`;
+      toast.style.opacity = "0";
+      toast.style.transition = "opacity 0.3s ease";
+
+      document.body.appendChild(toast);
+      setTimeout(() => toast.style.opacity = "1", 100);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 500);
+      }, 2000);
+    }
+
+    async function sendOTP() {
+      const email = document.querySelector('input[name="email"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+      const otpMessage = document.getElementById("otpMessage");
+      const passwordError = document.getElementById("passwordError");
+
+      otpMessage.textContent = "";
+      passwordError.textContent = "";
+      otpMessage.className = "mt-2 text-center text-base font-medium";
+
+      if (!email || !password) {
+        otpMessage.textContent = "Vui lòng nhập email và mật khẩu trước khi gửi OTP.";
+        otpMessage.classList.add("text-red-600");
+        return;
+      }
+
+      try {
+        const checkRes = await fetch("http://127.0.0.1:5000/check-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const checkData = await checkRes.json();
+
+        if (!checkRes.ok) {
+          if (checkData.message.includes("mật khẩu")) {
+            passwordError.textContent = checkData.message;
+          } else {
+            otpMessage.textContent = "❌ " + checkData.message;
+            otpMessage.classList.add("text-red-600");
+          }
+          return;
+        }
+
+        const otpRes = await fetch("http://127.0.0.1:5000/send-otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const otpData = await otpRes.json();
+        if (otpRes.ok) {
+          otpMessage.textContent = "🎉 OTP đã được gửi tới email của bạn!";
+          otpMessage.classList.add("text-orange-400");
+        } else {
+          otpMessage.textContent = "❌ " + otpData.message;
+          otpMessage.classList.add("text-red-600");
+        }
+      } catch (err) {
+        otpMessage.textContent = "❌ Không thể kết nối tới server.";
+        otpMessage.classList.add("text-red-600");
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const email = document.querySelector('input[name="email"]').value;
+      const password = document.querySelector('input[name="password"]').value;
+      const otp = document.querySelector('input[name="otp"]').value;
+
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+      if (otp.trim() !== "") {
+        formData.append("otp", otp);
+      }
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/verify-otp", {
+          method: "POST",
+          body: formData
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          showToast("🎉 Đăng nhập thành công!", "success");
+          localStorage.setItem("username", result.username);
+          localStorage.setItem("role", result.role);
+          setTimeout(() => {
+            window.location.href = result.redirect;
+          }, 1800);
+        } else {
+          showToast("❌ " + result.message, "error");
+        }
+      } catch (err) {
+        showToast("❌ Không thể kết nối server.", "error");
+      }
+    });
+  </script>
+</body>
+</html>

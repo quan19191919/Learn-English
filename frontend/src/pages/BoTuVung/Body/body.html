@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bài học – Từ vựng Các Bộ Phận Cơ Thể 🧍</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0b2447;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .flashcard {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .word {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0b2447;
+        }
+        
+        .phonetic {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+        
+        .meaning {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .play-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .play-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .start-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .start-btn button {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        
+        .start-btn button:first-child {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .start-btn button:first-child:hover {
+            background-color: #218838;
+        }
+        
+        .start-btn .home-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .start-btn .home-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lesson-container">
+        <h1>Bài học: Từ vựng Các Bộ Phận Cơ Thể 🧍</h1>
+
+        <div class="flashcard-grid">
+            <!-- Các thẻ từ vựng -->
+            <div class="flashcard">
+                <img src="https://img.icons8.com/color/100/head-profile.png" alt="head">
+                <div class="word">head</div>
+                <div class="phonetic">/hed/</div>
+                <div class="meaning">Đầu</div>
+                <button class="play-btn" onclick="speak('head')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/be/b7/64/beb76417d0e96b7c176c881d880562dc.jpg" alt="eye">
+                <div class="word">eye</div>
+                <div class="phonetic">/aɪ/</div>
+                <div class="meaning">Mắt</div>
+                <button class="play-btn" onclick="speak('eye')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/3a/99/c1/3a99c1d2bcc922aec15c37af30bda49b.jpg" alt="nose">
+                <div class="word">nose</div>
+                <div class="phonetic">/nəʊz/</div>
+                <div class="meaning">Mũi</div>
+                <button class="play-btn" onclick="speak('nose')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/db/53/dd/db53ddefc6efa01274a29dc5209e9cff.jpg" alt="mouth">
+                <div class="word">mouth</div>
+                <div class="phonetic">/maʊθ/</div>
+                <div class="meaning">Miệng</div>
+                <button class="play-btn" onclick="speak('mouth')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://img.icons8.com/color/100/hand.png" alt="hand">
+                <div class="word">hand</div>
+                <div class="phonetic">/hænd/</div>
+                <div class="meaning">Bàn tay</div>
+                <button class="play-btn" onclick="speak('hand')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/c8/cb/dd/c8cbdd234bde5eab5e8bfd5fa1b6c44d.jpg" alt="foot">
+                <div class="word">foot</div>
+                <div class="phonetic">/fʊt/</div>
+                <div class="meaning">Bàn chân</div>
+                <button class="play-btn" onclick="speak('foot')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/fb/ed/5f/fbed5f14cb9b79cbc823c02e71fa535d.jpg" alt="ear">
+                <div class="word">ear</div>
+                <div class="phonetic">/ɪə(r)/</div>
+                <div class="meaning">Tai</div>
+                <button class="play-btn" onclick="speak('ear')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://img.icons8.com/color/100/leg.png" alt="leg">
+                <div class="word">leg</div>
+                <div class="phonetic">/leɡ/</div>
+                <div class="meaning">Chân</div>
+                <button class="play-btn" onclick="speak('leg')">🔊 Nghe</button>
+            </div>
+        </div>
+
+        <!-- Nút điều hướng -->
+        <div class="start-btn">
+            <button onclick="window.location.href='games/index.html'">Bắt đầu chơi 🎮</button>
+            <button class="home-btn" onclick="window.location.href='../botuvung.html'">🏠 Quay về bộ từ vựng</button>
+        </div>
+    </div>
+
+    <script>
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+
+</html>

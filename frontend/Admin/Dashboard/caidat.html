@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cài đặt hệ thống</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #000;
+    }
+
+    .sidebar {
+      height: 100vh;
+      background-color: #003366;
+      color: white;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 12px 16px;
+    }
+
+    .sidebar a:hover,
+    .sidebar .active-link {
+      background-color: #0059b3;
+      font-weight: bold;
+    }
+
+    .topbar {
+      background-color: white;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #eaeaea;
+    }
+
+    body.dark-mode .sidebar {
+      background-color: #1e1e2f;
+    }
+
+    body.dark-mode .sidebar a {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .sidebar a:hover,
+    body.dark-mode .sidebar .active-link {
+      background-color: #333366;
+    }
+
+    body.dark-mode .topbar {
+      background-color: #1f1f1f;
+      border-bottom: 1px solid #444;
+    }
+
+    body.dark-mode .content,
+    body.dark-mode input,
+    body.dark-mode select,
+    body.dark-mode .form-control,
+    body.dark-mode .form-select {
+      background-color: #2a2a2a;
+      color: #f8f8f8;
+      border-color: #555;
+    }
+
+    body.dark-mode label,
+    body.dark-mode h4,
+    body.dark-mode h5 {
+      color: #ffffff;
+    }
+
+    body.dark-mode input::placeholder,
+    body.dark-mode .form-control::placeholder {
+      color: #aaa;
+    }
+
+    body.dark-mode .btn-outline-dark,
+    body.dark-mode .btn-outline-secondary {
+      color: #fff;
+      border-color: #ccc;
+    }
+
+    body.dark-mode .btn-outline-dark:hover,
+    body.dark-mode .btn-outline-secondary:hover {
+      background-color: #444;
+      color: #fff;
+    }
+
+    body.dark-mode .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 sidebar">
+        <h4 class="p-3">Yagi Admin</h4>
+        <a href="Home.html">📊 Dashboard</a>
+        <a href="qlyuser.html">👶 Quản lý Tài khoản Trẻ</a>
+        <a href="admin_thongke.html">📈 Thống kê</a>
+        <a href="caidat.html" class="active-link">⚙️ Cài đặt</a>
+      </nav>
+
+      <main class="col-md-10">
+        <div class="topbar d-flex justify-content-between align-items-center">
+          <h5>Thiết lập Hệ thống</h5>
+          <div>
+            <button class="btn btn-outline-secondary me-2" onclick="toggleQuickTheme()" id="themeToggleBtn">🌙</button>
+            <span>👤 Admin</span>
+          </div>
+        </div>
+
+        <div class="content">
+          <h4>⚙️ Cài đặt chung</h4>
+          <form id="settingForm" onsubmit="return handleSettingsSave(event)">
+            <div class="mb-3">
+                <label class="form-label">🌐 Ngôn ngữ hệ thống</label>
+                <select class="form-select" id="languageSelect">
+                <option value="en">English</option>
+                <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">🌗 Giao diện hệ thống</label><br />
+                <button type="button" class="btn btn-outline-dark me-2" onclick="setTheme('light')">🌞 Sáng</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="setTheme('dark')">🌙 Tối</button>
+            </div>
+
+            <button type="submit" class="btn btn-primary">📂 Lưu thay đổi</button>
+            </form>
+
+  <script>
+    function setTheme(mode) {
+      if (mode === "dark") {
+        document.body.classList.add("dark-mode");
+        const btn = document.getElementById("themeToggleBtn");
+        if (btn) btn.textContent = "🌞";
+      } else {
+        document.body.classList.remove("dark-mode");
+        const btn = document.getElementById("themeToggleBtn");
+        if (btn) btn.textContent = "🌙";
+      }
+      localStorage.setItem("theme", mode);
+    }
+
+    function toggleQuickTheme() {
+      const isDark = document.body.classList.contains("dark-mode");
+      setTheme(isDark ? "light" : "dark");
+    }
+
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      setTheme(savedTheme === "dark" ? "dark" : "light");
+    };
+
+    window.addEventListener("storage", function (event) {
+      if (event.key === "theme") {
+        setTheme(event.newValue);
+      }
+    });
+
+    function handleSettingsSave(event) {
+    event.preventDefault();
+
+    const selectedLang = document.getElementById("languageSelect").value;
+    const currentTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+
+    localStorage.setItem("language", selectedLang);
+    localStorage.setItem("theme", currentTheme);
+
+    alert("Đã lưu cài đặt. Đang tải lại...");
+
+    // Reload để cập nhật theme + lang
+    window.location.reload(); // hoặc chuyển hướng về trang chủ
+  }
+
+  </script>
+<script src="setting.js"></script>
+  
+</body>
+
+</html>

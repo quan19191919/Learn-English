@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🐾 Fill in the Blank - Thế Giới Động Vật 🌟</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Fredoka+One:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://png.pngtree.com/background/20230528/original/pngtree-cartoon-school-background-with-blue-sky-and-clouds-picture-image_2770957.jpg') center/cover no-repeat fixed;
+            min-height: 100vh;
+            font-family: 'Comic Neue', sans-serif;
+        }
+        
+        /* Main container */
+        .game-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 40px;
+            padding: 2.5rem 2rem;
+            color: #4b2991;
+            margin-bottom: 2.5rem;
+            border: 6px solid #764ba2;
+            box-shadow: 0 20px 60px rgba(78, 205, 196, 0.18);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Input styling */
+        .input-box {
+            border: 3px solid #764ba2;
+            border-radius: 20px;
+            padding: 12px 20px;
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #FFF8DC, #F0F8FF);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+        }
+        
+        .input-box:focus {
+            outline: none;
+            border-color: #4b2991;
+            box-shadow: 0 0 0 4px rgba(75, 41, 145, 0.2), 0 8px 25px rgba(118, 75, 162, 0.4);
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #FFFACD, #E0F6FF);
+        }
+        
+        .correct {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border-color: #28a745;
+            color: #155724;
+            animation: successPulse 0.8s ease-in-out;
+        }
+        
+        .incorrect {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border-color: #dc3545;
+            color: #721c24;
+            animation: errorShake 0.6s ease;
+        }
+        
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px rgba(40, 167, 69, 0.5); }
+        }
+        
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 123, 255, 0.4);
+        }
+        
+        .btn-hint {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+            border: none;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-hint:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 193, 7, 0.4);
+        }
+        
+        /* Image styling */
+        .animal-image {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
+            border: 4px solid #764ba2;
+            transition: all 0.3s ease;
+        }
+        
+        .animal-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(118, 75, 162, 0.4);
+        }
+        
+        /* Sentence styling */
+        .sentence {
+            font-size: 1.5rem;
+            line-height: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: #4b2991;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Score panel */
+        .score-panel {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #764ba2;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(118, 75, 162, 0.2);
+        }
+        
+        /* Modal styling */
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid #764ba2;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Feedback area */
+        .feedback-area {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            border: 3px solid #764ba2;
+            margin-top: 20px;
+        }
+        
+        /* Success animation */
+        .success-animation {
+            animation: celebration 1s ease-in-out;
+        }
+        
+        @keyframes celebration {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+            75% { transform: scale(1.1) rotate(-3deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .sentence { font-size: 1.2rem; line-height: 2rem; }
+            .input-box { min-width: 120px; font-size: 1rem; padding: 10px 15px; }
+            .animal-image { max-width: 180px; max-height: 180px; }
+            .btn-primary, .btn-secondary, .btn-hint { padding: 12px 24px; font-size: 1rem; }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <span class="font-bold text-pink-900 text-lg">Fill in the Blank - Animals</span>
+        </div>
+        <div class="space-x-4 text-base">
+            <a href="/" class="hover:text-pink-600">Trang chủ</a>
+            <a href="../../botuvung.html" class="hover:text-pink-600">Bộ từ vựng</a>
+            <a href="index.html" class="bg-pink-900 text-white px-4 py-1.5 rounded font-medium">Quay về Games</a>
+        </div>
+    </nav>
+
+    <!-- Main Game Area -->
+    <main class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Game Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-pink-900 mb-2" style="font-family: 'Fredoka One', cursive;">🐾 Fill in the Blank</h1>
+            <p class="text-lg text-gray-600">Điền từ tiếng Anh phù hợp vào chỗ trống</p>
+        </div>
+
+        <!-- Score and Progress -->
+        <div class="score-panel flex flex-wrap justify-between items-center mb-8 gap-4">
+            <div class="text-lg font-semibold text-pink-800">
+                Điểm: <span id="score">0</span>/<span id="total">0</span>
+            </div>
+            <div class="text-lg font-semibold text-blue-800">
+                Câu: <span id="current-question">1</span>/<span id="total-questions">10</span>
+            </div>
+            <div class="text-lg font-semibold text-purple-800">
+                Thời gian: <span id="timer">00:00</span>
+            </div>
+        </div>
+
+        <!-- Game Content -->
+        <div id="game-container" class="game-container">
+            <!-- Question will be inserted here -->
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="flex flex-wrap justify-center gap-6 mt-8">
+            <button id="check-btn" class="btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
+                ✅ Kiểm tra
+            </button>
+            <button id="next-btn" class="btn-secondary hidden">
+                ➡️ Câu tiếp theo
+            </button>
+            <button id="hint-btn" class="btn-hint">
+                💡 Gợi ý
+            </button>
+        </div>
+    </main>
+
+    <!-- Completion Modal -->
+    <div id="completion-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="modal-content p-8 max-w-md w-full mx-4 text-center">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-2xl font-bold text-pink-900 mb-4" style="font-family: 'Fredoka One', cursive;">Chúc mừng!</h2>
+            <p class="text-lg text-gray-600 mb-2">Bạn đã hoàn thành bài tập!</p>
+            <p class="text-xl font-semibold text-pink-800 mb-6">
+                Điểm của bạn: <span id="final-score">0</span>/<span id="final-total">0</span>
+            </p>
+            <p class="text-lg text-purple-800 mb-6">
+                Thời gian: <span id="final-time">00:00</span>
+            </p>
+            <div class="space-x-4">
+                <button id="play-again-btn" class="btn-primary">
+                    🔄 Chơi lại
+                </button>
+                <button id="back-to-games-btn" class="btn-secondary">
+                    🎮 Về Games
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const animals = [
+            {
+                english: "cat",
+                vietnamese: "mèo",
+                sentence: "The ____ is sleeping on the sofa.",
+                translation: "Con ____ đang ngủ trên ghế sofa.",
+                image: "https://i.pinimg.com/736x/67/8a/16/678a16be5ec0a7259ade2fcbe007b1e7.jpg"
+            },
+            {
+                english: "dog",
+                vietnamese: "chó",
+                sentence: "My ____ loves to play in the park.",
+                translation: "Con ____ của tôi thích chơi ở công viên.",
+                image: "https://i.pinimg.com/736x/01/2f/5f/012f5f08e266fe307a401b4eb419c62e.jpg"
+            },
+            {
+                english: "bird",
+                vietnamese: "chim",
+                sentence: "The colorful ____ is singing in the tree.",
+                translation: "Con ____ đầy màu sắc đang hát trên cây.",
+                image: "https://i.pinimg.com/736x/7a/5a/4a/7a5a4a989c7f840b41157c31ca6e94ee.jpg"
+            },
+            {
+                english: "fish",
+                vietnamese: "cá",
+                sentence: "The golden ____ swims in the aquarium.",
+                translation: "Con ____ vàng bơi trong bể cá.",
+                image: "https://i.pinimg.com/1200x/41/16/a7/4116a74bc3267f4a15c4ee6e13a0a3e6.jpg"
+            },
+            {
+                english: "rabbit",
+                vietnamese: "thỏ",
+                sentence: "The white ____ hops in the garden.",
+                translation: "Con ____ trắng nhảy trong vườn.",
+                image: "https://i.pinimg.com/1200x/8f/fd/a3/8ffda3d15f08aaaa4db84fe31c915653.jpg"
+            },
+            {
+                english: "elephant",
+                vietnamese: "voi",
+                sentence: "The big ____ has a long trunk.",
+                translation: "Con ____ to có vòi dài.",
+                image: "https://i.pinimg.com/1200x/d3/fe/67/d3fe6725c2b8906b4ea0765c450949e7.jpg"
+            },
+            {
+                english: "lion",
+                vietnamese: "sư tử",
+                sentence: "The brave ____ is the king of the jungle.",
+                translation: "Con ____ dũng cảm là vua của rừng xanh.",
+                image: "https://i.pinimg.com/736x/e9/e6/be/e9e6be7a41deb0d0ea6d1815edd91898.jpg"
+            },
+            {
+                english: "monkey",
+                vietnamese: "khỉ",
+                sentence: "The funny ____ swings from tree to tree.",
+                translation: "Con ____ vui nhộn đu từ cây này sang cây khác.",
+                image: "https://i.pinimg.com/1200x/9c/d4/6e/9cd46e121b28633208af2d4455c65793.jpg"
+            },
+            {
+                english: "tiger",
+                vietnamese: "hổ",
+                sentence: "The orange ____ has black stripes.",
+                translation: "Con ____ cam có vằn đen.",
+                image: "https://i.pinimg.com/1200x/ec/bd/94/ecbd940d6fc9debae2685311f6757e8a.jpg"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let totalQuestions = 10;
+        let gameStartTime = Date.now();
+        let timerInterval;
+        let questions = [];
+        let currentAnswer = "";
+
+        function initGame() {
+            // Shuffle and select questions
+            questions = [...animals].sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+            currentQuestionIndex = 0;
+            score = 0;
+            gameStartTime = Date.now();
+            
+            // Update UI
+            document.getElementById('total').textContent = totalQuestions;
+            document.getElementById('total-questions').textContent = totalQuestions;
+            
+            // Start timer
+            startTimer();
+            
+            // Load first question
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Date.now() - gameStartTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            currentAnswer = question.english.toLowerCase();
+            
+            // Update progress
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Create question HTML
+            const gameContainer = document.getElementById('game-container');
+            gameContainer.innerHTML = `
+                <div class="text-center mb-8">
+                    <div class="animal-image-container mb-6">
+                        <img src="${question.image}" alt="${question.vietnamese}" class="animal-image mx-auto">
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 border-3 border-purple-300 shadow-lg">
+                        <p class="sentence">${question.sentence.replace('____', '<input type="text" id="answer-input" class="input-box" placeholder="❓">')}</p>
+                        <p class="text-lg text-gray-600 mt-4 font-medium">${question.translation.replace('____', `<strong class="text-pink-600">${question.vietnamese}</strong>`)}</p>
+                    </div>
+                </div>
+                <div id="feedback" class="feedback-area text-center mt-6 hidden">
+                    <p id="feedback-text" class="text-xl font-bold mb-3"></p>
+                    <p id="correct-answer" class="text-green-600 text-lg font-semibold"></p>
+                </div>
+            `;
+            
+            // Focus on input
+            setTimeout(() => {
+                const inputElement = document.getElementById('answer-input');
+                if (inputElement) {
+                    inputElement.focus();
+                }
+            }, 100);
+            
+            // Add enter key listener
+            const inputElement = document.getElementById('answer-input');
+            if (inputElement) {
+                inputElement.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        checkAnswer();
+                    }
+                });
+            }
+            
+            // Reset buttons
+            document.getElementById('check-btn').style.display = 'inline-block';
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('check-btn').disabled = false;
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById('answer-input').value.trim().toLowerCase();
+            const inputBox = document.getElementById('answer-input');
+            const feedback = document.getElementById('feedback');
+            const feedbackText = document.getElementById('feedback-text');
+            const correctAnswerText = document.getElementById('correct-answer');
+            
+            if (!userAnswer) {
+                inputBox.style.borderColor = '#ef4444';
+                inputBox.style.animation = 'errorShake 0.6s ease';
+                return;
+            }
+            
+            feedback.classList.remove('hidden');
+            
+            if (userAnswer === currentAnswer) {
+                // Correct answer
+                inputBox.classList.add('correct');
+                feedbackText.innerHTML = '🎉 Tuyệt vời! Chính xác! 🌟';
+                feedbackText.className = 'text-xl font-bold mb-3 text-green-600';
+                
+                // Add celebration effect
+                const gameContainer = document.getElementById('game-container');
+                gameContainer.classList.add('success-animation');
+                setTimeout(() => gameContainer.classList.remove('success-animation'), 1000);
+                
+                score++;
+                document.getElementById('score').textContent = score;
+            } else {
+                // Incorrect answer
+                inputBox.classList.add('incorrect');
+                feedbackText.innerHTML = '❌ Oops! Thử lại nhé! 💪';
+                feedbackText.className = 'text-xl font-bold mb-3 text-red-600';
+                correctAnswerText.innerHTML = `🔍 Đáp án đúng: <strong class="text-2xl text-green-600">${currentAnswer}</strong>`;
+            }
+            
+            // Disable input and check button
+            inputBox.disabled = true;
+            document.getElementById('check-btn').style.display = 'none';
+            
+            // Show next button or complete game
+            if (currentQuestionIndex < totalQuestions - 1) {
+                document.getElementById('next-btn').style.display = 'inline-block';
+            } else {
+                setTimeout(completeGame, 2000);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showHint() {
+            const question = questions[currentQuestionIndex];
+            const hint = `Từ bắt đầu bằng "${currentAnswer[0].toUpperCase()}" và có ${currentAnswer.length} chữ cái`;
+            
+            // Show hint in feedback area
+            const feedback = document.getElementById('feedback');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            feedback.classList.remove('hidden');
+            feedbackText.innerHTML = `💡 <strong>Gợi ý:</strong> ${hint} 🤔`;
+            feedbackText.className = 'text-xl font-bold mb-3 text-blue-600';
+            
+            // Add sparkle effect
+            feedbackText.style.animation = 'celebration 0.8s ease-in-out';
+            
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+                feedbackText.style.animation = '';
+            }, 4000);
+        }
+
+        function completeGame() {
+            clearInterval(timerInterval);
+            
+            const finalTime = document.getElementById('timer').textContent;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-total').textContent = totalQuestions;
+            document.getElementById('final-time').textContent = finalTime;
+            
+            document.getElementById('completion-modal').classList.remove('hidden');
+        }
+
+        function playAgain() {
+            document.getElementById('completion-modal').classList.add('hidden');
+            clearInterval(timerInterval);
+            initGame();
+        }
+
+        function backToGames() {
+            window.location.href = 'index.html';
+        }
+
+        // Event listeners
+        document.getElementById('check-btn').addEventListener('click', checkAnswer);
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+        document.getElementById('hint-btn').addEventListener('click', showHint);
+        document.getElementById('play-again-btn').addEventListener('click', playAgain);
+        document.getElementById('back-to-games-btn').addEventListener('click', backToGames);
+
+        // Initialize game when page loads
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+
+</html>

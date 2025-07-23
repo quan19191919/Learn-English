@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bài học – Từ vựng Đồ Chơi 🧸</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0b2447;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .flashcard {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .word {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0b2447;
+        }
+        
+        .phonetic {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+        
+        .meaning {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .play-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .play-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .start-btn {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .start-btn button {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .start-btn button:first-child {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .start-btn button:first-child:hover {
+            background-color: #218838;
+        }
+        
+        .start-btn .home-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .start-btn .home-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lesson-container">
+        <h1>Bài học: Từ vựng Đồ Chơi 🧸</h1>
+
+        <div class="flashcard-grid">
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/7a/de/f0/7adef0b99f1348e4ba48ecf9ae91a4db.jpg" alt="teddy bear">
+                <div class="word">teddy bear</div>
+                <div class="phonetic">/ˈted.i ˌbeər/</div>
+                <div class="meaning">Gấu bông</div>
+                <button class="play-btn" onclick="speak('teddy bear')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/f2/99/31/f299314d47ca087a75cd4050a6c55bd1.jpg" alt="ball">
+                <div class="word">ball</div>
+                <div class="phonetic">/bɔːl/</div>
+                <div class="meaning">Bóng</div>
+                <button class="play-btn" onclick="speak('ball')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/2d/75/dc/2d75dc3c748b886f783faf8298c30a80.jpg" alt="doll">
+                <div class="word">doll</div>
+                <div class="phonetic">/dɒl/</div>
+                <div class="meaning">Búp bê</div>
+                <button class="play-btn" onclick="speak('doll')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/3f/eb/28/3feb2871258f24b923e272a39865f187.jpg" alt="robot">
+                <div class="word">robot</div>
+                <div class="phonetic">/ˈrəʊ.bɒt/</div>
+                <div class="meaning">Người máy</div>
+                <button class="play-btn" onclick="speak('robot')">🔊 Nghe</button>
+            </div>
+
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/1f/cd/ee/1fcdeee7bae6100848cb7dd5e28afd3c.jpg" alt="puzzle">
+                <div class="word">puzzle</div>
+                <div class="phonetic">/ˈpʌz.əl/</div>
+                <div class="meaning">Trò xếp hình</div>
+                <button class="play-btn" onclick="speak('puzzle')">🔊 Nghe</button>
+            </div>
+
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/85/c0/e3/85c0e37a5ed7b2bbd068d27c4228a145.jpg" alt="kite">
+                <div class="word">kite</div>
+                <div class="phonetic">/kaɪt/</div>
+                <div class="meaning">Diều</div>
+                <button class="play-btn" onclick="speak('kite')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/75/02/b8/7502b8084f36f95f67de07c7f5ac357f.jpg" alt="yo-yo">
+                <div class="word">yo-yo</div>
+                <div class="phonetic">/ˈjəʊ.jəʊ/</div>
+                <div class="meaning">Con xoay yo-yo</div>
+                <button class="play-btn" onclick="speak('yo-yo')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/cc/01/a4/cc01a4e78707d8555bc181d16233f9a5.jpg" alt="blocks">
+                <div class="word">blocks</div>
+                <div class="phonetic">/blɒks/</div>
+                <div class="meaning">Khối xếp hình</div>
+                <button class="play-btn" onclick="speak('blocks')">🔊 Nghe</button>
+            </div>
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/0d/c2/b5/0dc2b5b17328fb068dcb34d3e2e4b113.jpg" alt="card game">
+                <div class="word">card game</div>
+                <div class="phonetic">/kɑːd ɡeɪm/</div>
+                <div class="meaning">Bộ bài đồ chơi</div>
+                <button class="play-btn" onclick="speak('card game')">🔊 Nghe</button>
+            </div>
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/50/73/e8/5073e8b710dbdc801255672413ecbff5.jpg" alt="rubik's cube">
+                <div class="word">Rubik's cube</div>
+                <div class="phonetic">/ˈruː.bɪks kjuːb/</div>
+                <div class="meaning">Khối rubik</div>
+                <button class="play-btn" onclick="speak('Rubik\'s cube')">🔊 Nghe</button>
+            </div>
+
+
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/ef/6a/ea/ef6aeadb055778503832f3abb6811646.jpg" alt="balloon">
+                <div class="word">balloon</div>
+                <div class="phonetic">/bəˈluːn/</div>
+                <div class="meaning">Bóng bay</div>
+                <button class="play-btn" onclick="speak('balloon')">🔊 Nghe</button>
+            </div>
+            <!-- 12. drum -->
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/e7/4e/c5/e74ec5029a887c73432706052e7e4eea.jpg" alt="drum">
+                <div class="word">drum</div>
+                <div class="phonetic">/drʌm/</div>
+                <div class="meaning">Trống</div>
+                <button class="play-btn" onclick="speak('drum')">🔊 Nghe</button>
+            </div>
+
+        </div>
+
+        <div class="start-btn">
+            <button onclick="window.location.href='games/index.html'">Bắt đầu chơi 🎮</button>
+            <button class="home-btn" onclick="window.location.href='../botuvung.html'">🏠 Quay về bộ từ vựng</button>
+        </div>
+    </div>
+
+    <script>
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+
+</html>

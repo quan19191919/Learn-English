@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bài học – Từ vựng Quần Áo 👕</title>
+    <style>
+        body {
+            font-family: 'Segoe UI';    
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0b2447;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .flashcard {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .word {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0b2447;
+        }
+        
+        .phonetic {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+        
+        .meaning {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .play-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .play-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .start-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .start-btn button {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        
+        .start-btn button:first-child {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .start-btn button:first-child:hover {
+            background-color: #218838;
+        }
+        
+        .start-btn .home-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .start-btn .home-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lesson-container">
+        <h1>Bài học: Từ vựng Quần Áo 👕</h1>
+
+        <div class="flashcard-grid">
+            <!-- 8 từ vựng -->
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/a0/ee/51/a0ee51129b373b9ab6369129dafc12d3.jpg" alt="shirt">
+                <div class="word">shirt</div>
+                <div class="phonetic">/ʃɜːt/</div>
+                <div class="meaning">Áo sơ mi</div>
+                <button class="play-btn" onclick="speak('shirt')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/6b/7d/3f/6b7d3f410e75015375e78f095f092766.jpg" alt="t-shirt">
+                <div class="word">t-shirt</div>
+                <div class="phonetic">/ˈtiː.ʃɜːt/</div>
+                <div class="meaning">Áo thun</div>
+                <button class="play-btn" onclick="speak('t-shirt')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/53/5d/ba/535dbad52b3574a36e34de43106692d1.jpg" alt="pants">
+                <div class="word">pants</div>
+                <div class="phonetic">/pænts/</div>
+                <div class="meaning">Quần dài</div>
+                <button class="play-btn" onclick="speak('pants')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/51/49/21/5149214d6d3e18cd00f2511b8ef7b4f4.jpg" alt="shorts">
+                <div class="word">shorts</div>
+                <div class="phonetic">/ʃɔːts/</div>
+                <div class="meaning">Quần short</div>
+                <button class="play-btn" onclick="speak('shorts')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/c4/4c/8c/c44c8c5b9bf937bd9a1536ad7f9ab0ab.jpg" alt="skirt">
+                <div class="word">skirt</div>
+                <div class="phonetic">/skɜːt/</div>
+                <div class="meaning">Váy</div>
+                <button class="play-btn" onclick="speak('skirt')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/0b/c0/a9/0bc0a9b4d44e9d3d95c381de109358b9.jpg" alt="dress">
+                <div class="word">dress</div>
+                <div class="phonetic">/dres/</div>
+                <div class="meaning">Đầm</div>
+                <button class="play-btn" onclick="speak('dress')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/d3/fd/8a/d3fd8a704e7271f4c5713c13c38e5b4d.jpg" alt="jacket">
+                <div class="word">jacket</div>
+                <div class="phonetic">/ˈdʒæk.ɪt/</div>
+                <div class="meaning">Áo khoác</div>
+                <button class="play-btn" onclick="speak('jacket')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/43/13/61/43136179e1ff830ad4e0198e7222d72a.jpg" alt="sweater">
+                <div class="word">sweater</div>
+                <div class="phonetic">/ˈswet.ər/</div>
+                <div class="meaning">Áo len</div>
+                <button class="play-btn" onclick="speak('sweater')">🔊 Nghe</button>
+            </div>
+        </div>
+
+        <!-- Nút điều hướng -->
+        <div class="start-btn">
+            <button onclick="window.location.href='games/index.html'">Bắt đầu chơi 🎮</button>
+            <button class="home-btn" onclick="window.location.href='../botuvung.html'">🏠 Quay về bộ từ vựng</button>
+        </div>
+    </div>
+
+    <script>
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+
+</html>

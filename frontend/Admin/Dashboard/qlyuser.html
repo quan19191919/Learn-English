@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý Tài khoản Trẻ</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f8f9fa;
+      color: #000;
+    }
+
+    .sidebar {
+      height: 100vh;
+      background-color: #003366;
+      color: white;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 12px 16px;
+    }
+
+    .sidebar a:hover,
+    .sidebar .active-link {
+      background-color: #0059b3;
+      font-weight: bold;
+    }
+
+    .topbar {
+      background-color: white;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #eaeaea;
+    }
+
+    body.dark-mode .sidebar {
+      background-color: #1e1e2f;
+    }
+
+    body.dark-mode .sidebar a {
+      color: #e0e0e0;
+    }
+
+    body.dark-mode .sidebar a:hover,
+    body.dark-mode .sidebar .active-link {
+      background-color: #333366;
+    }
+
+    body.dark-mode .topbar {
+      background-color: #1f1f1f;
+      border-bottom: 1px solid #444;
+    }
+
+    body.dark-mode .content,
+    body.dark-mode input,
+    body.dark-mode select,
+    body.dark-mode .form-control,
+    body.dark-mode .form-select {
+      background-color: #2a2a2a;
+      color: #f8f8f8;
+      border-color: #555;
+    }
+
+    body.dark-mode label,
+    body.dark-mode h4,
+    body.dark-mode h5 {
+      color: #ffffff;
+    }
+
+    body.dark-mode input::placeholder,
+    body.dark-mode .form-control::placeholder {
+      color: #aaa;
+    }
+
+    body.dark-mode .btn-outline-dark,
+    body.dark-mode .btn-outline-secondary {
+      color: #fff;
+      border-color: #ccc;
+    }
+
+    body.dark-mode .btn-outline-dark:hover,
+    body.dark-mode .btn-outline-secondary:hover {
+      background-color: #444;
+      color: #fff;
+    }
+
+    body.dark-mode .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal-form {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 300px;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.btn-close-custom {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 sidebar">
+        <h4 class="p-3">Yagi Admin</h4>
+        <a href="Home.html">📊 Dashboard</a>
+        <a href="qlyuser.html" class="active">👶 Quản lý Tài khoản Trẻ</a>
+        <a href="#">📈 Thống kê</a>
+        <a href="caidat.html">⚙️ Cài đặt</a>
+      </div>
+      <main class="col-md-10">
+        <div class="topbar d-flex justify-content-between align-items-center">
+          <h4 class="mb-0">👶 Danh sách Tài khoản Trẻ</h4>
+          <div>
+            👤 <span id="adminName">Admin</span>
+            <button class="btn btn-sm btn-outline-danger ms-2" onclick="logout()">Đăng xuất</button>
+          </div>
+        </div>
+        <div class="content">
+          <table class="table table-bordered table-hover" id="accountTable">
+            <thead class="table-primary">
+              <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Mật khẩu</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <button class="btn btn-success" onclick="openForm()">+ Thêm tài khoản mới</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal Form -->
+  <div class="overlay" id="formOverlay">
+    <div class="modal-form">
+      <button type="button" class="btn-close-custom" onclick="closeForm()">×</button>
+      <h5 id="formTitle">Thêm tài khoản mới</h5>
+      <form id="accountForm">
+        <input type="hidden" id="editIndex" value="-1" />
+        <div class="mb-3">
+          <label class="form-label">Tên</label>
+          <input type="text" class="form-control" id="nameInput" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="userInput" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mật khẩu</label>
+          <input type="text" class="form-control" id="passInput" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu</button>
+      </form>
+    </div>
+  </div>
+
+<script>
+let accounts = [];
+
+async function fetchAccounts() {
+  try {
+    const response = await fetch("http://localhost:5000/api/users");
+    const data = await response.json();
+    accounts = data.map(u => ({
+      id: u.id,
+      username: u.username,
+      email: u.email,
+      pass: u.password
+    }));
+    renderTable();
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách người dùng:", error);
+  }
+}
+
+function renderTable() {
+  const tbody = document.querySelector("#accountTable tbody");
+  tbody.innerHTML = "";
+  accounts.forEach((acc, index) => {
+    const safePass = acc.pass.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${index + 1}</td>
+      <td>${acc.username || "—"}</td>
+      <td>${acc.email}</td>
+      <td class="password-cell" onclick="togglePassword(this, '${safePass}')">******</td>
+      <td>
+        <button class="btn btn-sm btn-warning" onclick="openForm(${index})">Sửa</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteAccount(${index})">Xóa</button>
+      </td>`;
+    tbody.appendChild(row);
+  });
+}
+
+function openForm(index = -1) {
+  document.getElementById("formOverlay").style.display = "flex";
+  if (index >= 0) {
+    const acc = accounts[index];
+    document.getElementById("formTitle").textContent = "Sửa tài khoản";
+    document.getElementById("editIndex").value = index;
+    document.getElementById("nameInput").value = acc.username;
+    document.getElementById("userInput").value = acc.email;
+    document.getElementById("passInput").value = acc.pass;
+  } else {
+    document.getElementById("formTitle").textContent = "Thêm tài khoản mới";
+    document.getElementById("accountForm").reset();
+    document.getElementById("editIndex").value = -1;
+  }
+}
+
+document.getElementById("accountForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  const username = document.getElementById("nameInput").value.trim();   // tên người dùng
+  const email = document.getElementById("userInput").value.trim();     // email thật
+  const password = document.getElementById("passInput").value;
+  const editIndex = parseInt(document.getElementById("editIndex").value);
+
+  const account = { username, email, password, role: "student" };
+
+  try {
+    if (editIndex >= 0) {
+      const id = accounts[editIndex].id;
+      const res = await fetch(`http://localhost:5000/api/users/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(account)
+      });
+      const result = await res.json();
+      if (result.success) {
+        closeForm();
+        fetchAccounts();
+      } else {
+        alert(result.message || "Cập nhật thất bại");
+      }
+    } else {
+      const res = await fetch("http://localhost:5000/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(account)
+      });
+      const result = await res.json();
+      if (result.success) {
+        closeForm();
+        fetchAccounts();
+      } else {
+        alert(result.message || "Thêm thất bại");
+      }
+    }
+  } catch (err) {
+    alert("Lỗi kết nối đến máy chủ!");
+    console.error(err);
+  }
+});
+
+function closeForm() {
+  document.getElementById("formOverlay").style.display = "none";
+}
+
+function togglePassword(cell, actualPass) {
+  cell.textContent = cell.textContent === "******" ? actualPass : "******";
+}
+
+async function deleteAccount(index) {
+  const acc = accounts[index];
+  if (confirm("Bạn có chắc muốn xóa tài khoản này?")) {
+    try {
+      const res = await fetch(`http://localhost:5000/api/users/${acc.id}`, {
+        method: "DELETE"
+      });
+      const result = await res.json();
+      if (result.success) {
+        fetchAccounts();
+      } else {
+        alert(result.message || "Xóa thất bại");
+      }
+    } catch (err) {
+      alert("Lỗi kết nối khi xóa!");
+      console.error(err);
+    }
+  }
+}
+
+function logout() {
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  window.location.href = "/src/pages/Home.html";
+}
+
+window.onload = function () {
+  const username = localStorage.getItem("username") || "Admin";
+  document.getElementById("adminName").textContent = username;
+  fetchAccounts();
+};
+</script>
+<script src="setting.js"></script>
+</body>
+</html>

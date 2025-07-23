@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart Vocabulary Learning Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .question-block {
+        background: #dcfce7;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        max-width: 700px;
+      }
+      .answer-option {
+        margin-left: 1.5rem;
+        cursor: pointer;
+      }
+      .answer-option input[type="radio"] {
+        margin-right: 6px;
+        cursor: pointer;
+      }
+      .correct {
+        color: green;
+        font-weight: bold;
+      }
+      .wrong {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-100 text-slate-900 font-sans relative min-h-screen">
+    <a href="/" class="absolute top-5 left-5 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">⬅ Quay lại Trang chủ</a>
+
+    <div class="max-w-3xl mx-auto mt-20 p-6 bg-white rounded shadow-lg">
+      <h1 class="text-3xl font-bold text-blue-800 mb-6">
+        🤖 Chatbot tạo đề thi tiếng Anh có chọn đề tài & chấm điểm
+      </h1>
+
+      <div id="chat-box" class="h-64 overflow-y-auto border border-gray-300 rounded p-4 bg-slate-50 mb-4 space-y-2">
+        <p class="text-gray-500 italic">
+          Bạn có thể hỏi chatbot hoặc tạo đề thi bằng các tùy chọn dưới đây.
+        </p>
+      </div>
+
+      <div class="mb-4 flex flex-wrap items-center gap-4">
+        <label for="num-questions" class="font-semibold">Số câu hỏi:</label>
+        <select id="num-questions" class="border border-gray-300 rounded px-3 py-1">
+          <option value="5">5 câu</option>
+          <option value="10" selected>10 câu</option>
+          <option value="15">15 câu</option>
+        </select>
+
+        <label for="difficulty-select" class="font-semibold">Độ khó:</label>
+        <select id="difficulty-select" class="border border-gray-300 rounded px-3 py-1">
+          <option value="">Ngẫu nhiên</option>
+          <option value="dễ">Dễ</option>
+          <option value="trung bình">Trung bình</option>
+          <option value="khó">Khó</option>
+        </select>
+
+        <label for="topic-select" class="font-semibold">Chọn đề tài:</label>
+        <select id="topic-select" class="border border-gray-300 rounded px-3 py-1">
+          
+          <option value="Fruit">Fruit (Trái cây)</option>
+          <option value="Animals">Animals (Động vật)</option>
+          <option value="Colors">Colors (Màu sắc)</option>
+          <option value="Body">Body (Bộ phận cơ thể)</option>
+          <option value="Clothes">Clothes (Quần áo)</option>
+          <option value="Numbers">Numbers (Số đếm)</option>
+          <option value="Toys">Toys (Đồ chơi)</option>
+          <option value="Household">Household (Đồ dùng trong nhà)</option>
+        </select>
+
+        <input id="topic-input" type="text" placeholder="Nhập đề tài khác nếu chọn Khác" class="border border-gray-300 rounded px-3 py-1 w-60" disabled />
+
+        <button id="create-exam-btn" class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
+          Tạo đề thi
+        </button>
+      </div>
+
+      <div id="exam-area" class="mb-4"></div>
+
+      <button id="submit-exam-btn" class="hidden bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">
+        Nộp bài
+      </button>
+
+      <button id="show-answer-btn" class="hidden bg-yellow-500 text-white px-6 py-2 rounded hover:bg-yellow-600 transition ml-2">
+        Hiển thị đáp án
+      </button>
+
+      <!-- ✅ Vùng hiển thị điểm -->
+      <div id="score-display" class="mt-4 text-lg font-semibold text-blue-700"></div>
+
+      <div class="flex gap-2 mt-8">
+        <input id="user-input" type="text" placeholder="Nhập câu hỏi hoặc lệnh..." class="flex-1 border border-gray-300 px-4 py-2 rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <button onclick="sendMessage()" class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
+          Gửi
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const difficultySelect = document.getElementById("difficulty-select");
+      const topicSelect = document.getElementById("topic-select");
+      const topicInput = document.getElementById("topic-input");
+      topicSelect.addEventListener("change", () => {
+        topicInput.disabled = topicSelect.value !== "Other";
+        if (topicSelect.value !== "Other") topicInput.value = "";
+      });
+
+      const chatBox = document.getElementById("chat-box");
+      const userInput = document.getElementById("user-input");
+      const createExamBtn = document.getElementById("create-exam-btn");
+      const examArea = document.getElementById("exam-area");
+      const submitBtn = document.getElementById("submit-exam-btn");
+      const showAnsBtn = document.getElementById("show-answer-btn");
+      const scoreDisplay = document.getElementById("score-display");
+      let currentAnswers = [];
+      let answered = false;
+
+      async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+        chatBox.innerHTML += `<div class="text-right"><p class="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-lg max-w-xl">${escapeHtml(message)}</p></div>`;
+        userInput.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        if (message.toLowerCase().includes("tạo đề thi")) {
+          chatBox.innerHTML += `<div class="text-left"><p class="inline-block bg-gray-200 text-gray-700 px-4 py-2 rounded-lg max-w-xl">Vui lòng sử dụng phần \"Tạo đề thi\" bên trên để tạo đề thi với số câu hỏi, đề tài và độ khó bạn chọn nhé.</p></div>`;
+          chatBox.scrollTop = chatBox.scrollHeight;
+          return;
+        }
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message }),
+          });
+          const data = await response.json();
+          chatBox.innerHTML += `<div class="text-left"><p class="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-lg max-w-xl">${escapeHtml(
+            data.response || data.error
+          )}</p></div>`;
+          chatBox.scrollTop = chatBox.scrollHeight;
+        } catch (error) {
+          chatBox.innerHTML += `<div class="text-left"><p class="inline-block bg-red-100 text-red-800 px-4 py-2 rounded-lg max-w-xl">Lỗi kết nối đến server.</p></div>`;
+        }
+      }
+
+      createExamBtn.onclick = async () => {
+        const num = parseInt(document.getElementById("num-questions").value);
+        let topic = topicSelect.value === "Other" ? topicInput.value.trim() : topicSelect.value;
+        const difficulty = difficultySelect.value;
+        if (topic.length > 100) topic = topic.substring(0, 100);
+
+        examArea.innerHTML = "<p>Đang tạo đề thi, vui lòng chờ...</p>";
+        submitBtn.style.display = "none";
+        showAnsBtn.style.display = "none";
+        scoreDisplay.textContent = "";
+        currentAnswers = [];
+        answered = false;
+
+        const prompt = `Tạo đề thi tiếng Anh gồm ${num} câu hỏi trắc nghiệm về từ vựng${
+          topic ? ` chủ đề \"${topic}\"` : ""
+        }${difficulty ? ` với độ khó ${difficulty}` : ""}. Mỗi câu có 4 đáp án A, B, C, D và có một đáp án đúng. Viết theo định dạng:
+
+1. Câu hỏi
+   A. Đáp án
+   B. Đáp án
+   C. Đáp án
+   D. Đáp án
+Answer: X
+
+Không thêm giải thích hay câu hỏi ngoài lề. Các câu ngắt dòng rõ ràng.`;
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: prompt }),
+          });
+          const data = await response.json();
+          parseAndRenderQuestions(data.response, num);
+        } catch (e) {
+          examArea.innerHTML = `<p class="text-red-700">Lỗi kết nối server.</p>`;
+        }
+      };
+
+      function parseAndRenderQuestions(text, numQuestions) {
+        examArea.innerHTML = "";
+        currentAnswers = [];
+        answered = false;
+        submitBtn.style.display = "inline-block";
+        showAnsBtn.style.display = "none";
+
+        let regex = /(\d+)\.\s([\s\S]*?)(?=(\d+\.)|$)/g;
+        let matches = [];
+        let match;
+        while ((match = regex.exec(text)) !== null)
+          matches.push(match[0].trim());
+        matches = matches.slice(0, numQuestions);
+
+        matches.forEach((qBlock, idx) => {
+          let answerMatch = qBlock.match(/Answer:\s*([A-D])/i);
+          let correct = answerMatch ? answerMatch[1].toUpperCase() : "";
+          currentAnswers.push(correct);
+
+          let lines = qBlock.split("\n").map((l) => l.trim());
+          let questionLine = "";
+          let options = {};
+          for (let line of lines) {
+            if (line.match(/^\d+\./))
+              questionLine = line.replace(/^\d+\.\s*/, "");
+            else if (line.match(/^[A-D]\./)) {
+              let key = line.charAt(0);
+              options[key] = line.substring(2).trim();
+            }
+          }
+
+          let html = `<div class="question-block" data-index="${idx}"><p><b>Câu ${
+            idx + 1
+          }:</b> ${escapeHtml(questionLine)}</p>`;
+          for (let opt of ["A", "B", "C", "D"]) {
+            html += `<label class="answer-option"><input type="radio" name="q${idx}" value="${opt}" /> ${opt}. ${escapeHtml(
+              options[opt] || ""
+            )}</label>`;
+          }
+          html += `</div>`;
+          examArea.innerHTML += html;
+        });
+      }
+
+      submitBtn.onclick = () => {
+        if (answered) return;
+        let score = 0;
+        const total = currentAnswers.length;
+        for (let i = 0; i < total; i++) {
+          const selected = document.querySelector(`input[name="q${i}"]:checked`);
+          const qDiv = document.querySelector(`.question-block[data-index="${i}"]`);
+          if (selected) {
+            if (selected.value === currentAnswers[i]) {
+              score++;
+              qDiv.querySelectorAll("label").forEach((l) => {
+                if (l.querySelector("input").value === currentAnswers[i])
+                  l.classList.add("correct");
+              });
+            } else {
+              qDiv.querySelectorAll("label").forEach((l) => {
+                if (l.querySelector("input").value === selected.value)
+                  l.classList.add("wrong");
+                if (l.querySelector("input").value === currentAnswers[i])
+                  l.classList.add("correct");
+              });
+            }
+          } else {
+            qDiv.querySelectorAll("label").forEach((l) => {
+              if (l.querySelector("input").value === currentAnswers[i])
+                l.classList.add("correct");
+            });
+          }
+        }
+        scoreDisplay.textContent = `Bạn đạt ${score} / ${total} điểm.`;
+        answered = true;
+        submitBtn.style.display = "none";
+        showAnsBtn.style.display = "inline-block";
+      };
+
+      showAnsBtn.onclick = () => {
+        for (let i = 0; i < currentAnswers.length; i++) {
+          const qDiv = document.querySelector(`.question-block[data-index="${i}"]`);
+          qDiv.querySelectorAll("label").forEach((l) => {
+            if (l.querySelector("input").value === currentAnswers[i])
+              l.classList.add("correct");
+          });
+        }
+        showAnsBtn.style.display = "none";
+      };
+
+      function escapeHtml(text) {
+        if (!text) return "";
+        return text.replace(/[&<>"']/g, (m) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        }[m]));
+      }
+    </script>
+  </body>
+</html>

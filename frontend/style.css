@@ -1,0 +1,412 @@
+/* General layout */
+/*login*/
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #1e293b;
+    /* Slate-900 */
+}
+
+
+/* Navbar */
+
+nav {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+nav a {
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1e293b;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #2563eb;
+    /* Blue-600 */
+}
+
+nav .active {
+    background-color: #1e3a8a;
+    /* Blue-900 */
+    color: white;
+    padding: 0.375rem 1rem;
+    border-radius: 0.375rem;
+}
+
+
+/* Form layout */
+
+main {
+    padding: 3rem 1.5rem;
+}
+
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    outline: none;
+}
+
+form input:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.4);
+}
+
+form button {
+    width: 100%;
+    background-color: #f97316;
+    /* Orange-500 */
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+form button:hover {
+    background-color: #ea580c;
+    /* Orange-600 */
+}
+
+.text-sm a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.text-sm a:hover {
+    text-decoration: underline;
+}
+/*signup*/
+/* ===== General style ===== */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+
+/* ===== Button Orange ===== */
+
+.btn-orange {
+    background-color: #ff6600;
+    color: white;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-orange:hover {
+    background-color: #e65c00;
+}
+
+
+/* ===== Navbar ===== */
+
+.nav-link {
+    color: black;
+    font-weight: 500;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #ff6600;
+}
+
+.navbar-brand {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1e40af;
+}
+
+
+/* ===== Form section ===== */
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+
+/* ===== Responsive tweaks ===== */
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+    .max-h-80 {
+        max-height: 200px;
+    }
+}
+/*minigame.css*/
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #f0f8ff, #e0f2fe);
+    color: #1e293b;
+}
+
+.animal-random {
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+.animal-random:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes sway {
+    0%,
+    100% {
+        transform: rotate(-5deg) translateY(0);
+    }
+    50% {
+        transform: rotate(5deg) translateY(-5px);
+    }
+}
+
+.animate-sway {
+    animation: sway 3s ease-in-out infinite;
+}
+
+.animate-sway-slow {
+    animation: sway 5s ease-in-out infinite;
+}
+
+.animate-sway-fast {
+    animation: sway 1.5s ease-in-out infinite;
+}
+
+
+/* Delay hiệu ứng */
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
+.delay-700 {
+    animation-delay: 0.7s;
+}
+
+@keyframes bounce-slow {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+}
+/*trang chủ*/
+/* General body style */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #1e293b;
+    /* slate-900 */
+}
+
+
+/* Navbar */
+
+nav {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+nav .font-bold {
+    color: #1e3a8a;
+    /* blue-900 */
+    font-size: 1.125rem;
+    /* text-lg */
+}
+
+nav a {
+    font-weight: 500;
+    margin-right: 10px;
+    color: #000000;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #2563eb;
+    /* blue-600 */
+}
+
+nav a.bg-blue-900 {
+    background-color: #1e3a8a;
+    color: #ffffff;
+    padding: 0.375rem 1rem;
+    border-radius: 0.375rem;
+}
+
+
+/* Heading h1 */
+
+h1 {
+    font-size: 2.25rem;
+    /* text-4xl */
+    font-weight: bold;
+    color: #1e3a8a;
+    /* blue-900 */
+}
+
+
+/* Paragraph text */
+
+p {
+    font-size: 1.125rem;
+    /* text-xl */
+    color: #334155;
+    /* slate-700 */
+}
+
+
+/* Hero section button */
+
+a.bg-orange-500 {
+    background-color: #f97316;
+}
+
+a.bg-orange-500:hover {
+    background-color: #ea580c;
+}
+
+a.rounded {
+    border-radius: 0.375rem;
+}
+
+
+/* Feature icons spacing */
+
+section img {
+    max-height: 3rem;
+}
+
+
+/* Feature section heading */
+
+h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e40af;
+    /* blue-800 */
+}
+
+
+/* Feature section paragraph */
+
+section p {
+    font-size: 0.875rem;
+    /* text-sm */
+    color: #475569;
+    /* slate-700 */
+}
+/*minigame.css*/
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #f0f8ff, #e0f2fe);
+    color: #1e293b;
+}
+
+.animal-random {
+    position: absolute;
+    transition: transform 0.3s ease;
+}
+
+.animal-random:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes sway {
+    0%,
+    100% {
+        transform: rotate(-5deg) translateY(0);
+    }
+    50% {
+        transform: rotate(5deg) translateY(-5px);
+    }
+}
+
+.animate-sway {
+    animation: sway 3s ease-in-out infinite;
+}
+
+.animate-sway-slow {
+    animation: sway 5s ease-in-out infinite;
+}
+
+.animate-sway-fast {
+    animation: sway 1.5s ease-in-out infinite;
+}
+
+
+/* Delay hiệu ứng */
+
+.delay-200 {
+    animation-delay: 0.2s;
+}
+
+.delay-300 {
+    animation-delay: 0.3s;
+}
+
+.delay-400 {
+    animation-delay: 0.4s;
+}
+
+.delay-500 {
+    animation-delay: 0.5s;
+}
+
+.delay-700 {
+    animation-delay: 0.7s;
+}
+
+@keyframes bounce-slow {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+}

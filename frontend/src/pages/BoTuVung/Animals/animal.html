@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bài học – Từ vựng Động Vật 🐾</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #0b2447;
+            margin-bottom: 30px;
+        }
+        
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .flashcard {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .flashcard img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        
+        .word {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0b2447;
+        }
+        
+        .phonetic {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+        
+        .meaning {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .play-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .play-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .start-btn {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .start-btn button {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .start-btn button:first-child {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .start-btn button:first-child:hover {
+            background-color: #218838;
+        }
+        
+        .start-btn .home-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .start-btn .home-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lesson-container">
+        <h1>Bài học: Từ vựng Động Vật 🐾</h1>
+        <div class="flashcard-grid">
+            <!-- Mỗi flashcard là 1 con vật -->
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/3e/ba/70/3eba70b7600c637b789ba2f4917de26c.jpg" alt="dog">
+                <div class="word">dog</div>
+                <div class="phonetic">/dɒɡ/</div>
+                <div class="meaning">Chó</div>
+                <button class="play-btn" onclick="speak('dog')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/ed/6f/4c/ed6f4ca0aa46f4b069f575a257226c96.jpg" alt="cat">
+                <div class="word">cat</div>
+                <div class="phonetic">/kæt/</div>
+                <div class="meaning">Mèo</div>
+                <button class="play-btn" onclick="speak('cat')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/c1/75/9f/c1759f0a69bc53cb2ec91916d6c01145.jpg" alt="cow">
+                <div class="word">cow</div>
+                <div class="phonetic">/kaʊ/</div>
+                <div class="meaning">Bò</div>
+                <button class="play-btn" onclick="speak('cow')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/d1/45/93/d14593e91639ece3882fa6378de08c58.jpg" alt="elephant">
+                <div class="word">elephant</div>
+                <div class="phonetic">/ˈel.ɪ.fənt/</div>
+                <div class="meaning">Voi</div>
+                <button class="play-btn" onclick="speak('elephant')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/76/d0/74/76d074d466b14494e246ec2b61688027.jpg" alt="lion">
+                <div class="word">lion</div>
+                <div class="phonetic">/ˈlaɪ.ən/</div>
+                <div class="meaning">Sư tử</div>
+                <button class="play-btn" onclick="speak('lion')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/9c/d4/6e/9cd46e121b28633208af2d4455c65793.jpg" alt="monkey">
+                <div class="word">monkey</div>
+                <div class="phonetic">/ˈmʌŋ.ki/</div>
+                <div class="meaning">Khỉ</div>
+                <button class="play-btn" onclick="speak('monkey')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/7b/ea/14/7bea14bbb35bdac2752ee17d942da1ef.jpg" alt="tiger">
+                <div class="word">tiger</div>
+                <div class="phonetic">/ˈtaɪ.ɡər/</div>
+                <div class="meaning">Hổ</div>
+                <button class="play-btn" onclick="speak('tiger')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/59/13/bf/5913bf22dff031b94b3c588bf0cab02f.jpg" alt="rabbit">
+                <div class="word">rabbit</div>
+                <div class="phonetic">/ˈræb.ɪt/</div>
+                <div class="meaning">Thỏ</div>
+                <button class="play-btn" onclick="speak('rabbit')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/8d/4d/01/8d4d0171f4389892d789bcd8dd1f4a1b.jpg" alt="sheep">
+                <div class="word">sheep</div>
+                <div class="phonetic">/ʃiːp/</div>
+                <div class="meaning">Cừu</div>
+                <button class="play-btn" onclick="speak('sheep')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/e9/ef/31/e9ef3142c6791cfe1fc1fa0976a17f69.jpg" alt="horse">
+                <div class="word">horse</div>
+                <div class="phonetic">/hɔːs/</div>
+                <div class="meaning">Ngựa</div>
+                <button class="play-btn" onclick="speak('horse')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/92/bf/93/92bf93c06ae2fa44c7a25a5466a83825.jpg" alt="pig">
+                <div class="word">pig</div>
+                <div class="phonetic">/pɪɡ/</div>
+                <div class="meaning">Heo</div>
+                <button class="play-btn" onclick="speak('pig')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/9e/ca/6a/9eca6aaa663ef4966ea6e3570c513cd3.jpg" alt="chicken">
+                <div class="word">chicken</div>
+                <div class="phonetic">/ˈtʃɪk.ɪn/</div>
+                <div class="meaning">Gà</div>
+                <button class="play-btn" onclick="speak('chicken')">🔊 Nghe</button>
+            </div>
+        </div>
+
+        <!-- Các nút chuyển trang -->
+        <div class="start-btn">
+            <button onclick="window.location.href='games/index.html'">Bắt đầu chơi 🎮</button>
+            <button class="home-btn" onclick="window.location.href='../botuvung.html'">🏠 Quay về bộ từ vựng</button>
+        </div>
+    </div>
+
+    <script>
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+
+</html>

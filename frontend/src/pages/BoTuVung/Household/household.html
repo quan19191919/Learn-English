@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Bài học – Từ vựng Đồ Dùng Trong Nhà 🏠</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0b2447;
+            margin-bottom: 30px;
+        }
+
+        .lesson-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .flashcard {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .flashcard img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .word {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0b2447;
+        }
+
+        .phonetic {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .meaning {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .play-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .play-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .start-btn {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .start-btn button {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .start-btn button:first-child {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .start-btn button:first-child:hover {
+            background-color: #218838;
+        }
+
+        .start-btn .home-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .start-btn .home-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="lesson-container">
+        <h1>Bài học: Từ vựng Đồ Dùng Trong Nhà 🏠</h1>
+
+        <div class="flashcard-grid">
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/b8/3f/e8/b83fe854cb907b9abacb1cf546de9aa9.jpg" alt="table">
+                <div class="word">table</div>
+                <div class="phonetic">/ˈteɪ.bəl/</div>
+                <div class="meaning">Bàn</div>
+                <button class="play-btn" onclick="speak('table')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/c0/33/7e/c0337ee48b548744cc6254641c20ca92.jpg" alt="chair">
+                <div class="word">chair</div>
+                <div class="phonetic">/tʃeə(r)/</div>
+                <div class="meaning">Ghế</div>
+                <button class="play-btn" onclick="speak('chair')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/2b/f8/4a/2bf84a7459c4df025c4bf349f8c18a7d.jpg" alt="bed">
+                <div class="word">bed</div>
+                <div class="phonetic">/bed/</div>
+                <div class="meaning">Giường</div>
+                <button class="play-btn" onclick="speak('bed')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/de/7a/fb/de7afbd66b203d817c227e2a8609af1b.jpg" alt="lamp">
+                <div class="word">lamp</div>
+                <div class="phonetic">/læmp/</div>
+                <div class="meaning">Đèn bàn</div>
+                <button class="play-btn" onclick="speak('lamp')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/5d/60/1e/5d601e3df8edfb1a7666661635649dfb.jpg" alt="clock">
+                <div class="word">clock</div>
+                <div class="phonetic">/klɒk/</div>
+                <div class="meaning">Đồng hồ</div>
+                <button class="play-btn" onclick="speak('clock')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/9f/85/8c/9f858ce9fbe9031502e1370451439dce.jpg" alt="mirror">
+                <div class="word">mirror</div>
+                <div class="phonetic">/ˈmɪr.ər/</div>
+                <div class="meaning">Gương</div>
+                <button class="play-btn" onclick="speak('mirror')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/90/15/50/901550c311bb73ce7acde817081fee0e.jpg" alt="sofa">
+                <div class="word">sofa</div>
+                <div class="phonetic">/ˈsəʊ.fə/</div>
+                <div class="meaning">Ghế sofa</div>
+                <button class="play-btn" onclick="speak('sofa')">🔊 Nghe</button>
+            </div>
+
+            <div class="flashcard">
+                <img src="https://i.pinimg.com/736x/8d/b8/47/8db847fe873011583f3c75bc61038861.jpg" alt="fridge">
+                <div class="word">fridge</div>
+                <div class="phonetic">/frɪdʒ/</div>
+                <div class="meaning">Tủ lạnh</div>
+                <button class="play-btn" onclick="speak('fridge')">🔊 Nghe</button>
+            </div>
+        </div>
+
+        <div class="start-btn">
+            <button onclick="window.location.href='games/index.html'">Bắt đầu chơi 🎮</button>
+            <button class="home-btn" onclick="window.location.href='../botuvung.html'">🏠 Quay về bộ từ vựng</button>
+        </div>
+    </div>
+
+    <script>
+        function speak(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            speechSynthesis.speak(utterance);
+        }
+    </script>
+</body>
+
+</html>

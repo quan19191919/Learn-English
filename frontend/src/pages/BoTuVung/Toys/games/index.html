@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minigame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="minigame.css" />
+</head>
+
+<body class="bg-blue-50 text-slate-900 font-sans relative overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <span class="font-bold text-blue-900 text-lg">Trang web học từ vựng thông minh cùng Yagi</span>
+        </div>
+        <div class="space-x-4 text-base">
+            <a href="/">Trang chủ</a>
+            <a href="/BoTuVung/botuvung.html">Bộ từ vựng</a>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto px-6 py-10 relative z-10">
+        <h1 class="text-4xl font-bold text-blue-900 text-center mb-3">🎮 Minigame</h1>
+        <p class="text-xl text-slate-700 text-center mb-10">Kiểm tra kiến thức từ vựng với các trò chơi thú vị</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Multiple Choice -->
+            <a href="quiz_index.html" class="block bg-orange-500 text-white p-6 rounded-xl shadow hover:scale-105 transition">
+                <div class="flex items-center space-x-4">
+                    <div class="text-5xl">🎯</div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Choice Quiz</h2>
+                        <p class="text-base">Select the correct meaning</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Match the Pair -->
+            <a href="match_index.html" class="block bg-blue-100 text-blue-900 p-6 rounded-xl shadow hover:scale-105 transition">
+                <div class="flex items-center space-x-4">
+                    <div class="text-5xl">🧙</div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Match the Pair</h2>
+                        <p class="text-base">Match words with correct meanings</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Memory Game -->
+            <a href="memory.html" class="block bg-yellow-100 text-yellow-900 p-6 rounded-xl shadow hover:scale-105 transition">
+                <div class="flex items-center space-x-4">
+                    <div class="text-5xl">🧠</div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Memory Game</h2>
+                        <p class="text-base">Find matching pairs between words and pictures</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Fill in the blank -->
+            <a href="fill_in_blank.html" class="block bg-green-100 text-green-900 p-6 rounded-xl shadow hover:scale-105 transition">
+                <div class="flex items-center space-x-4">
+                    <div class="text-5xl">✏️</div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Fill in the Blank</h2>
+                        <p class="text-base">Complete the missing words</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- Decorations -->
+    <img src="https://png.pngtree.com/png-clipart/20230328/original/pngtree-cute-apple-hand-drawn-vector-png-image_9006893.png" alt="Apple" class="hidden md:block absolute top-28 left-6 w-28 animate-bounce-slow z-10" />
+    <img src="https://png.pngtree.com/png-clipart/20230619/original/pngtree-cute-animal-name-tags-png-image_9190705.png" alt="Frog" class="hidden md:block absolute top-28 right-6 w-28 animate-bounce-slow z-10" />
+    <img src="https://png.pngtree.com/png-clipart/20231120/original/pngtree-cute-snowman-coloring-book-for-kids-christmas-theme-png-image_13667030.png" alt="Snowman" class="hidden md:block absolute top-[320px] left-0 w-24 animate-bounce-slow z-0 opacity-90"/>
+    <img src="https://png.pngtree.com/png-clipart/20230228/original/pngtree-cute-panda-png-image_8967882.png" alt="Panda" class="hidden md:block absolute top-[280px] right-0 w-24 animate-bounce-slow z-0 opacity-90" />
+    <!-- Animal strip bottom -->
+    <div class="relative w-full h-44 mt-10">
+        <img src="https://png.pngtree.com/png-clipart/20230110/original/pngtree-little-buffalo-animal-ip-element-image-vector-illustration-png-image_8899744.png" class="animal-random w-24 absolute left-[6%] top-4 animate-sway-slow" />
+        <img src="https://cdn.pixabay.com/photo/2019/07/20/23/54/earth-4351735_1280.png" class="animal-random w-24 absolute left-[24%] top-8 animate-sway" />
+        <img src="https://png.pngtree.com/png-clipart/20220117/original/pngtree-cartoon-hand-painted-seafood-lobster-png-image_7131879.png" class="animal-random w-24 absolute left-[44%] top-4 animate-sway-fast" />
+        <img src="https://png.pngtree.com/png-clipart/20221222/original/pngtree-kawaii-bee-png-image_8794873.png" class="animal-random w-24 absolute left-[66%] top-10 animate-sway-slow" />
+        <img src="https://png.pngtree.com/png-clipart/20221001/original/pngtree-cute-caktus-png-image_8647693.png" class="animal-random w-24 absolute left-[83%] top-6 animate-sway" />
+    </div>
+</body>
+
+</html>

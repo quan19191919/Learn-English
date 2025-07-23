@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz - Body Parts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: url('https://png.pngtree.com/background/20230528/original/pngtree-cartoon-school-background-with-blue-sky-and-clouds-picture-image_2770957.jpg') center/cover no-repeat fixed;
+            min-height: 100vh;
+        }
+        .question-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 40px;
+            padding: 2.5rem 2rem 2rem 2rem;
+            color: #4b2991;
+            margin-bottom: 2.5rem;
+            border: 6px solid #764ba2;
+            box-shadow: 0 20px 60px rgba(78, 205, 196, 0.18);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .option-btn {
+            padding: 32px 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            position: relative;
+            outline: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+        .option-a { background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; }
+        .option-b { background: linear-gradient(135deg, #f59e42, #fbbf24); color: white; }
+        .option-c { background: linear-gradient(135deg, #f472b6, #c084fc); color: white; }
+        .option-d { background: linear-gradient(135deg, #34d399, #6ee7b7); color: white; }
+        .option-btn.correct {
+            background: linear-gradient(135deg, #22c55e, #bbf7d0) !important;
+            color: #166534 !important;
+            border: 3px solid #22c55e;
+        }
+        .option-btn.incorrect {
+            background: linear-gradient(135deg, #ef4444, #fee2e2) !important;
+            color: #991b1b !important;
+            border: 3px solid #ef4444;
+        }
+        .option-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
+        .icon-animate {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2.2rem;
+            animation: popIcon 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes popIcon {
+            0% { transform: scale(0); opacity: 0; }
+            60% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .celebration {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            z-index: 1000;
+            animation: celebrate 1s ease-in-out;
+            pointer-events: none;
+        }
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; }
+            50% { transform: translate(-50%, -50%) scale(1.2) rotate(180deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); opacity: 0; }
+        }
+        .body-image {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px -1px rgba(0, 0, 0, 0.12);
+        }
+        @media (max-width: 768px) {
+            .question-container { padding: 1.2rem 0.5rem; }
+            .option-btn { font-size: 1.1rem; padding: 18px 0; }
+            .body-image { max-width: 120px; max-height: 120px; }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-pink-50 to-purple-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between px-6 py-4 shadow-md bg-white sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <span class="font-bold text-pink-900 text-lg">Quiz - Body Parts</span>
+        </div>
+        <div class="space-x-4 text-base">
+            <a href="../../../Home.html" class="hover:text-pink-600">Trang chủ</a>
+            <a href="../../botuvung.html" class="hover:text-pink-600">Bộ từ vựng</a>
+            <a href="index.html" class="bg-pink-900 text-white px-4 py-1.5 rounded font-medium">Quay về Games</a>
+        </div>
+    </nav>
+
+    <!-- Main Game Area -->
+    <main class="max-w-4xl mx-auto px-6 py-8">
+        <!-- Game Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-pink-900 mb-2">🎯 Choice Quiz</h1>
+            <p class="text-lg text-gray-600">Chọn đáp án đúng cho từ vựng về cơ thể</p>
+        </div>
+
+        <!-- Score and Progress -->
+        <div class="flex justify-between items-center mb-8 bg-white p-4 rounded-lg shadow">
+            <div class="text-lg font-semibold text-pink-800">
+                Điểm: <span id="score">0</span>/<span id="total">0</span>
+            </div>
+            <div class="text-lg font-semibold text-blue-800">
+                Câu: <span id="current-question">1</span>/<span id="total-questions">10</span>
+            </div>
+            <div class="text-lg font-semibold text-purple-800">
+                Thời gian: <span id="timer">00:00</span>
+            </div>
+        </div>
+
+        <!-- Question Container -->
+        <div id="question-container" class="question-container">
+            <!-- Question will be inserted here -->
+        </div>
+
+        <!-- Options Container -->
+        <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <!-- Options will be inserted here -->
+        </div>
+
+        <!-- Control Buttons -->
+        <div class="flex justify-center space-x-4">
+            <button id="next-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition hidden">
+                Câu tiếp theo
+            </button>
+        </div>
+    </main>
+
+    <!-- Completion Modal -->
+    <div id="completion-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 text-center">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-2xl font-bold text-pink-900 mb-4">Chúc mừng!</h2>
+            <p class="text-lg text-gray-600 mb-2">Bạn đã hoàn thành quiz!</p>
+            <p class="text-xl font-semibold text-pink-800 mb-6">
+                Điểm của bạn: <span id="final-score">0</span>/<span id="final-total">0</span>
+            </p>
+            <p class="text-lg text-purple-800 mb-6">
+                Thời gian: <span id="final-time">00:00</span>
+            </p>
+            <div class="space-x-4">
+                <button id="play-again-btn" class="bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                    Chơi lại
+                </button>
+                <button id="back-to-games-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+                    Về trang Games
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const bodyParts = [
+            {
+                english: "head",
+                vietnamese: "đầu",
+                image: "https://i.pinimg.com/1200x/1a/8b/03/1a8b03b430aa56311360376b413bb7bd.jpg"
+            },
+            {
+                english: "eye",
+                vietnamese: "mắt",
+                image: "https://i.pinimg.com/1200x/be/b7/64/beb76417d0e96b7c176c881d880562dc.jpg"
+            },
+            {
+                english: "nose",
+                vietnamese: "mũi",
+                image: "https://i.pinimg.com/1200x/3e/af/d1/3eafd1fb677e13fa55c2264f642cfa47.jpg"
+            },
+            {
+                english: "mouth",
+                vietnamese: "miệng",
+                image: "https://i.pinimg.com/736x/1d/3e/72/1d3e724bea85e3f2f50d1bd841006072.jpg"
+            },
+            {
+                english: "hand",
+                vietnamese: "tay",
+                image: "https://i.pinimg.com/1200x/7f/ce/8b/7fce8be799496a6310d243f755c71594.jpg"
+            },
+            {
+                english: "foot",
+                vietnamese: "chân",
+                image: "https://i.pinimg.com/1200x/d1/3b/90/d13b90258b788597563627f4adab65ba.jpg"
+            },
+            {
+                english: "ear",
+                vietnamese: "tai",
+                image: "https://i.pinimg.com/1200x/dd/4d/97/dd4d9758859d880c3f956b65409207f1.jpg"
+            },
+        
+            {
+                english: "leg",
+                vietnamese: "chân",
+                image: "https://i.pinimg.com/736x/a4/93/d1/a493d1547ebf94b66f7cf547cc5def27.jpg"
+            },
+            
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let totalQuestions = 10;
+        let gameStartTime = Date.now();
+        let timerInterval;
+        let questions = [];
+        let selectedAnswer = null;
+
+        function initGame() {
+            questions = [...bodyParts].sort(() => Math.random() - 0.5).slice(0, totalQuestions);
+            currentQuestionIndex = 0;
+            score = 0;
+            gameStartTime = Date.now();
+            
+            document.getElementById('total').textContent = totalQuestions;
+            document.getElementById('total-questions').textContent = totalQuestions;
+            
+            startTimer();
+            loadQuestion();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Date.now() - gameStartTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            selectedAnswer = null;
+            
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Create question HTML
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = `
+                <div class="text-center">
+                    <img src="${question.image}" alt="${question.vietnamese}" class="body-image mx-auto mb-4">
+                    <h2 class="text-2xl font-bold mb-4">Từ tiếng Anh cho "${question.vietnamese}" là gì?</h2>
+                </div>
+            `;
+            
+        // Create options
+        const wrongOptions = bodyParts
+            .filter(item => item.english !== question.english)
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
+
+        const allOptions = [question, ...wrongOptions].sort(() => Math.random() - 0.5);
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        const optionClasses = ['option-a', 'option-b', 'option-c', 'option-d'];
+        allOptions.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.className = `option-btn ${optionClasses[index]}`;
+            btn.innerHTML = `<span style='font-size:1.2rem;'>${String.fromCharCode(65+index)}.</span> ${option.english}`;
+            btn.onclick = () => selectAnswer(btn, option.english, question.english);
+            optionsContainer.appendChild(btn);
+        });
+
+        document.getElementById('next-btn').classList.add('hidden');
+        }
+
+        function showCelebration(isCorrect) {
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration';
+            celebration.innerHTML = isCorrect ? '👏🎉✨' : '💫😅🤔';
+            document.body.appendChild(celebration);
+            setTimeout(() => celebration.remove(), 1000);
+        }
+
+        function selectAnswer(element, selected, correct) {
+            if (selectedAnswer !== null) return;
+
+            selectedAnswer = selected;
+            const options = document.querySelectorAll('.option-btn');
+            options.forEach(option => {
+                option.onclick = null;
+                if (option.textContent.includes(correct)) {
+                    option.classList.add('correct');
+                    option.innerHTML += '<span class="icon-animate">✅</span>';
+                } else if (option.textContent.includes(selected) && selected !== correct) {
+                    option.classList.add('incorrect');
+                    option.innerHTML += '<span class="icon-animate">❌</span>';
+                }
+            });
+
+            if (selected === correct) {
+                score++;
+                document.getElementById('score').textContent = score;
+                showCelebration(true);
+            } else {
+                showCelebration(false);
+            }
+
+            setTimeout(() => {
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    document.getElementById('next-btn').classList.remove('hidden');
+                } else {
+                    completeGame();
+                }
+            }, 1200);
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function completeGame() {
+            clearInterval(timerInterval);
+            
+            const finalTime = document.getElementById('timer').textContent;
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('final-total').textContent = totalQuestions;
+            document.getElementById('final-time').textContent = finalTime;
+            
+            document.getElementById('completion-modal').classList.remove('hidden');
+        }
+
+        function playAgain() {
+            document.getElementById('completion-modal').classList.add('hidden');
+            clearInterval(timerInterval);
+            initGame();
+        }
+
+        function backToGames() {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+        document.getElementById('play-again-btn').addEventListener('click', playAgain);
+        document.getElementById('back-to-games-btn').addEventListener('click', backToGames);
+
+        window.addEventListener('load', initGame);
+    </script>
+</body>
+
+</html>

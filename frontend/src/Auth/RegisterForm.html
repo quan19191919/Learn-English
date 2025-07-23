@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Vocabulary Learning Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../../style.css" />
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+</head>
+
+<body class="text-slate-900 font-sans min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between px-6 py-4 shadow bg-white bg-opacity-90">
+    <div class="font-bold text-blue-900 text-lg">
+      Smart vocabulary learning website
+    </div>
+    <div class="space-x-6 text-base">
+      <a href="/" class="hover:text-blue-600">Home</a>
+      <a href="LoginForm.html" class="bg-blue-900 text-white px-4 py-1.5 rounded">Login</a>
+    </div>
+  </nav>
+
+  <!-- Nội dung đăng ký -->
+  <div class="flex-grow flex items-center justify-center px-4">
+    <main class="max-w-4xl w-full px-6 py-12 bg-white bg-opacity-70 rounded-2xl shadow-2xl backdrop-blur-md">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <!-- Form -->
+        <div>
+          <h2 class="text-3xl font-bold text-blue-900 mb-2">Sign Up</h2>
+          <p class="text-slate-600 mb-6">Create an account to start learning vocabulary</p>
+          <form id="registerForm" class="space-y-4">
+            <input type="text" name="username" placeholder="Tên người dùng"
+              class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required />
+            <input type="email" name="email" placeholder="Email"
+              class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required />
+            <input type="password" name="password" id="password" placeholder="Mật khẩu"
+              class="w-full border border-gray-300 p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required />
+            <p id="passwordError" class="text-red-600 text-sm mt-1 hidden">Mật khẩu phải từ 6 ký tự, bao gồm chữ và số.</p>
+
+            <button type="submit"
+              class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-md transition">
+              Sign up
+            </button>
+          </form>
+          <p class="mt-4 text-sm text-slate-800">Already have an account?
+            <a href="LoginForm.html" class="text-blue-600 hover:underline">Login</a>
+          </p>
+        </div>
+
+        <!-- Hình ảnh -->
+        <div class="text-center">
+          <img src="https://i.pinimg.com/736x/4e/b1/12/4eb112ab7296ef054d66f010d768ae98.jpg" alt="Sign Up illustration"
+            class="max-h-80 mx-auto rounded-xl shadow-lg" />
+        </div>
+      </div>
+    </main>
+  </div>
+  <!-- Thông báo nổi -->
+<!-- Popup Đăng ký thành công -->
+<div id="successPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white p-8 rounded-2xl shadow-2xl text-center animate-fade-in">
+    <div class="text-green-600 text-6xl mb-4">✅</div>
+    <h2 class="text-2xl font-bold text-slate-800 mb-2">Registration successful!</h2>
+    <p class="text-slate-600 text-lg">Chuyển hướng đến trang đăng nhập...</p>
+  </div>
+</div>
+
+
+
+  <!-- JavaScript xử lý gửi form -->
+   <script>
+  const form = document.getElementById("registerForm");
+  const passwordInput = document.getElementById("password");
+  const passwordError = document.getElementById("passwordError");
+  const popup = document.getElementById("successPopup");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const username = form.username.value.trim();
+    const email = form.email.value.trim();
+    const password = passwordInput.value;
+
+    const regex = /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    if (!regex.test(password)) {
+      passwordError.classList.remove("hidden");
+      return;
+    } else {
+      passwordError.classList.add("hidden");
+    }
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/register", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        // ✅ Hiện popup
+        popup.classList.remove("hidden");
+
+        // ⏳ Sau 2 giây chuyển hướng
+        setTimeout(() => {
+          window.location.href = result.redirect;
+        }, 2000);
+      } else {
+        alert("❌ Đăng ký thất bại: " + (result.message || "Lỗi không xác định"));
+      }
+    } catch (error) {
+      alert("❌ Không thể kết nối tới server!");
+      console.error(error);
+    }
+  });
+</script>
+
+
+
+</body>
+
+</html>
