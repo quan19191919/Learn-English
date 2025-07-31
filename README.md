@@ -1,6 +1,6 @@
 1. Đề tài
 # Learn English
-Web học tập Tiếng Anh giúp
+Web học tập Tiếng Anh 
 ---
 ## Tính năng chính 
 - Đăng ký/Đăng nhập(với OTP Email cho học sinh)
@@ -24,7 +24,7 @@ Web học tập Tiếng Anh giúp
 
 <pre>
 bash
-git clone https://github.com/quan19191919/Learn-English.git '''
+git clone https://github.com/quan19191919/Learn-English.git
 </pre>
 
 2. Cài đặt thư viện
@@ -39,7 +39,7 @@ git clone https://github.com/quan19191919/Learn-English.git '''
         database="yagi_english"
     )</pre>
 4. Khởi động hệ thống
-   <pre>'''python app.py'''</pre>
+   <pre>python app.py</pre>
 5. Mở trình duyệt
    <pre> http://127.0.0.1:5000 </pre>
 6. Tài khoản mẫu
